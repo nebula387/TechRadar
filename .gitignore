@@ -1,0 +1,28 @@
+# Secrets — never commit
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+
+# Local generated images (copied to website/public/images/ which IS committed)
+data/images/
+
+# Logs (optional — remove this line if you want logs in git)
+data/techradar.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/settings.json
+*.swp
