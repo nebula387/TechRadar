@@ -1,0 +1,41 @@
+[
+  {
+    "title": "AI System Prompts Leak",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260621-asgeirtjsystem-prompts-leaks.html",
+    "source_url": "https://github.com/asgeirtj/system_prompts_leaks",
+    "description": "The recent leak of system prompts from major AI models, including Anthropic, OpenAI, and Google, has sent shockwaves through the developer community. These prompts, used to fine-tune and control the behavior of AI models",
+    "category": "Dataset",
+    "score": 92,
+    "emoji": "🤖",
+    "date": "2026-06-21",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260621-asgeirtjsystem-prompts-leaks.png",
+    "tags": [],
+    "slug": "20260621-asgeirtjsystem-prompts-leaks"
+  },
+  {
+    "title": "AI Coding Agents",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260621-addyosmaniagent-skills.html",
+    "source_url": "https://github.com/addyosmani/agent-skills",
+    "description": "Production-grade engineering skills for AI coding agents have become a crucial aspect of the software development landscape. As AI technology continues to advance, the need for reliable and efficient coding agents has in",
+    "category": "AI Agent",
+    "score": 92,
+    "emoji": "🚀",
+    "date": "2026-06-21",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260621-addyosmaniagent-skills.png",
+    "tags": [],
+    "slug": "20260621-addyosmaniagent-skills"
+  },
+  {
+    "title": "Global Intelligence Dashboard",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260621-koala73worldmonitor.html",
+    "source_url": "https://github.com/koala73/worldmonitor",
+    "description": "The world is more interconnected than ever, and staying informed about global events in real-time is crucial for making informed decisions. The koala73/worldmonitor is a real-time global intelligence dashboard that lever",
+    "category": "AI Model",
+    "score": 95,
+    "emoji": "🌎",
+    "date": "2026-06-21",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260621-koala73worldmonitor.png",
+    "tags": [],
+    "slug": "20260621-koala73worldmonitor"
+  }
+]
