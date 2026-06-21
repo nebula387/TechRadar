@@ -90,13 +90,13 @@ async def run_pipeline(collectors: list[BaseCollector]) -> None:
     # Best items first
     scored.sort(key=lambda x: x.score, reverse=True)
 
-    # ── Generate + Publish ───────────────────────────────────────────────────
-    published = 0
+    # ── Generate + Publish (or save for approval) ────────────────────────────
+    processed = 0
     images_dir = Path("./data/images")
     images_dir.mkdir(parents=True, exist_ok=True)
 
     for item in scored:
-        remaining = s.max_posts_per_day - (today_count + published)
+        remaining = s.max_posts_per_day - (today_count + processed)
         if remaining <= 0:
             break
 
@@ -119,9 +119,30 @@ async def run_pipeline(collectors: list[BaseCollector]) -> None:
         if generated:
             content.image_path = str(generated)
 
-        channels = await _publish_to_all(content, storage)
-        if channels:
-            published += 1
-            logger.info(f"✅ Published '{item.title[:60]}' → {channels}")
+        if s.enable_approval_mode:
+            # Save to DB and send preview to admin — do not publish yet
+            from app.bot import send_preview
+            storage.save_pending(
+                slug=content.website_slug,
+                item_url=item.url,
+                content_json=content.model_dump_json(),
+                image_path=content.image_path,
+            )
+            await send_preview(content, storage)
+            logger.info(f"⏳ Pending approval: '{item.title[:60]}'")
+            processed += 1
 
-    logger.info(f"Pipeline done: {published} item(s) published this run")
+            # After sending all previews, start approval polling loop
+            if processed >= len(scored) or processed >= remaining:
+                from app.bot import poll_loop
+                timeout = s.approval_timeout_seconds
+                logger.info(f"Starting approval loop (timeout={timeout}s)...")
+                await poll_loop(timeout_seconds=timeout)
+        else:
+            channels = await _publish_to_all(content, storage)
+            if channels:
+                processed += 1
+                logger.info(f"✅ Published '{item.title[:60]}' → {channels}")
+
+    mode = "pending approval" if s.enable_approval_mode else "published"
+    logger.info(f"Pipeline done: {processed} item(s) {mode} this run")

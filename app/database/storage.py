@@ -41,6 +41,17 @@ class Storage:
                     count INTEGER DEFAULT 0
                 )
             """)
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS pending_items (
+                    slug TEXT PRIMARY KEY,
+                    item_url TEXT NOT NULL,
+                    content_json TEXT NOT NULL,
+                    image_path TEXT,
+                    preview_message_id INTEGER,
+                    created_at TEXT NOT NULL,
+                    status TEXT DEFAULT 'pending'
+                )
+            """)
 
     def is_published(self, url: str) -> bool:
         with self._connect() as conn:
@@ -85,6 +96,42 @@ class Storage:
             ))
         self.increment_today_count()
         logger.info(f"Saved published record: {record.item_url}")
+
+    def is_pending_or_published(self, url: str) -> bool:
+        with self._connect() as conn:
+            p = conn.execute("SELECT slug FROM pending_items WHERE item_url = ? AND status = 'pending'", (url,)).fetchone()
+            if p:
+                return True
+            return self.is_published(url)
+
+    def save_pending(self, slug: str, item_url: str, content_json: str, image_path: str | None = None) -> None:
+        with self._connect() as conn:
+            conn.execute("""
+                INSERT OR REPLACE INTO pending_items
+                (slug, item_url, content_json, image_path, created_at, status)
+                VALUES (?, ?, ?, ?, ?, 'pending')
+            """, (slug, item_url, content_json, image_path, datetime.utcnow().isoformat()))
+
+    def set_preview_message_id(self, slug: str, message_id: int) -> None:
+        with self._connect() as conn:
+            conn.execute("UPDATE pending_items SET preview_message_id = ? WHERE slug = ?", (message_id, slug))
+
+    def get_all_pending(self) -> list[dict]:
+        with self._connect() as conn:
+            rows = conn.execute(
+                "SELECT * FROM pending_items WHERE status = 'pending' ORDER BY created_at"
+            ).fetchall()
+            return [dict(r) for r in rows]
+
+    def get_pending_by_slug(self, slug: str) -> dict | None:
+        with self._connect() as conn:
+            row = conn.execute("SELECT * FROM pending_items WHERE slug = ?", (slug,)).fetchone()
+            return dict(row) if row else None
+
+    def set_pending_status(self, slug: str, status: str) -> None:
+        with self._connect() as conn:
+            conn.execute("UPDATE pending_items SET status = ? WHERE slug = ?", (status, slug))
+        logger.info(f"Pending item '{slug}' → {status}")
 
     def get_recent_published(self, limit: int = 20) -> list[dict]:
         with self._connect() as conn:

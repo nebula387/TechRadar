@@ -12,6 +12,12 @@ class Settings(BaseSettings):
     # Telegram
     telegram_bot_token: str = ""
     telegram_channel_id: str = ""
+    # Your personal Telegram chat ID (get from @userinfobot)
+    telegram_admin_chat_id: str = ""
+    # If true: pipeline sends previews to admin for approval before publishing
+    enable_approval_mode: bool = False
+    # Seconds to wait for admin response before auto-skipping (0 = wait forever)
+    approval_timeout_seconds: int = 600
 
     # GitHub
     github_token: str = ""
