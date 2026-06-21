@@ -1,5 +1,4 @@
 import logging
-import textwrap
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
@@ -55,6 +54,29 @@ def _hex_rgb(hex_color: str) -> tuple[int, int, int]:
 
 def _darken(rgb: tuple, amount: int = 110) -> tuple:
     return tuple(max(0, c - amount) for c in rgb)
+
+
+def _wrap_pixels(draw, text: str, font, max_px: int) -> list[str]:
+    """Word-wrap text so each line fits within max_px pixels (measured, not estimated)."""
+    words = text.split()
+    lines: list[str] = []
+    current = ""
+    for word in words:
+        candidate = (current + " " + word).strip()
+        try:
+            w = draw.textlength(candidate, font=font)
+        except AttributeError:
+            w, _ = draw.textsize(candidate, font=font)  # Pillow < 9.2
+        if w <= max_px:
+            current = candidate
+        else:
+            if current:
+                lines.append(current)
+            # If a single word is too long, truncate it
+            current = word
+    if current:
+        lines.append(current)
+    return lines
 
 
 def _ascii_only(text: str) -> str:
@@ -137,10 +159,8 @@ def generate_card(
         # Title — clean ASCII only (DejaVu can't render emoji/CJK)
         clean_title = _ascii_only(title)
         if not clean_title:
-            clean_title = title[:60]  # last resort: raw, truncated
-        char_w = max(18, inner_w // 44)  # approximate chars per line
-        title_lines = textwrap.wrap(clean_title, width=char_w)[:4]
-        for line in title_lines:
+            clean_title = title[:60]
+        for line in _wrap_pixels(draw, clean_title, f_lg, inner_w)[:4]:
             draw.text((inner_x, y), line, font=f_lg, fill=(235, 235, 255))
             y += 84
         y += 12
@@ -148,7 +168,7 @@ def generate_card(
         # Description — 3 lines max
         clean_desc = _ascii_only(description)
         if clean_desc:
-            for line in textwrap.wrap(clean_desc[:240], width=int(inner_w / 22))[:3]:
+            for line in _wrap_pixels(draw, clean_desc[:280], f_md, inner_w)[:3]:
                 draw.text((inner_x, y), line, font=f_md, fill=(140, 140, 170))
                 y += 56
 
