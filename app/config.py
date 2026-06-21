@@ -26,7 +26,7 @@ class Settings(BaseSettings):
     groq_api_key: str = ""
     groq_model: str = "llama-3.3-70b-versatile"
     openrouter_api_key: str = ""
-    openrouter_model: str = "mistralai/mistral-7b-instruct:free"
+    openrouter_model: str = "google/gemma-2-9b-it:free"
     # NVIDIA NIM — fallback for Groq filtering (free credits on signup)
     nvidia_api_key: str = ""
     nvidia_model: str = "meta/llama-3.3-70b-instruct"

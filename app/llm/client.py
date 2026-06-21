@@ -24,8 +24,6 @@ async def _post_with_retry(url: str, headers: dict, payload: dict, max_retries: 
                     backoff = 30.0 * (2 ** attempt)  # 30s, 60s, 120s, 240s
                     if retry_after:
                         try:
-                            # Cap at 120s — if Groq says wait 700s, that means daily quota is
-                            # exhausted. Retrying won't help; bail out after 2 attempts instead.
                             wait = min(float(retry_after), 120.0)
                         except ValueError:
                             wait = backoff
@@ -34,6 +32,12 @@ async def _post_with_retry(url: str, headers: dict, payload: dict, max_retries: 
                     logger.warning(f"Rate limited (429), waiting {wait:.0f}s (attempt {attempt + 1}/{max_retries})")
                     await asyncio.sleep(wait)
                     continue
+
+                if 400 <= resp.status_code < 500:
+                    # Client errors (404 bad model, 401 bad key, 400 bad request) won't fix
+                    # themselves on retry — fail fast instead of waiting 35 seconds
+                    logger.error(f"Client error {resp.status_code}: {resp.text[:200]}")
+                    raise RuntimeError(f"HTTP {resp.status_code}: {resp.text[:100]}")
 
                 resp.raise_for_status()
                 data = resp.json()
@@ -107,22 +111,28 @@ async def groq_complete(prompt: str, system: str = "", max_tokens: int = 1024) -
 
 
 async def openrouter_complete(prompt: str, system: str = "", max_tokens: int = 2048) -> str:
+    """Content generation: OpenRouter first, NVIDIA as fallback."""
     s = get_settings()
-    if not s.openrouter_api_key:
-        raise ValueError("OPENROUTER_API_KEY not set")
-    data = await _post_with_retry(
-        OPENROUTER_URL,
-        headers={
-            "Authorization": f"Bearer {s.openrouter_api_key}",
-            "Content-Type": "application/json",
-            "HTTP-Referer": s.website_base_url,
-            "X-Title": "TechRadar AI",
-        },
-        payload={
-            "model": s.openrouter_model,
-            "messages": _messages(prompt, system),
-            "temperature": 0.7,
-            "max_tokens": max_tokens,
-        },
-    )
-    return data["choices"][0]["message"]["content"]
+    if s.openrouter_api_key:
+        try:
+            data = await _post_with_retry(
+                OPENROUTER_URL,
+                headers={
+                    "Authorization": f"Bearer {s.openrouter_api_key}",
+                    "Content-Type": "application/json",
+                    "HTTP-Referer": s.website_base_url,
+                    "X-Title": "TechRadar AI",
+                },
+                payload={
+                    "model": s.openrouter_model,
+                    "messages": _messages(prompt, system),
+                    "temperature": 0.7,
+                    "max_tokens": max_tokens,
+                },
+            )
+            return data["choices"][0]["message"]["content"]
+        except RuntimeError as e:
+            logger.warning(f"OpenRouter failed ({e}), falling back to NVIDIA")
+
+    # Fallback: NVIDIA NIM (also good at generation, creative tasks)
+    return await nvidia_complete(prompt, system=system, max_tokens=max_tokens)
