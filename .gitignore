@@ -19,7 +19,6 @@ check_key.py
 # Generated data — not committed (deploy step rebuilds from feed.json)
 data/images/
 website/public/posts/
-website/public/images/
 website/public/index.html
 
 # Logs (optional — remove this line if you want logs in git)

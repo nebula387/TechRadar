@@ -75,12 +75,12 @@ jobs:
           SOURCE="${{ github.event.inputs.source || 'github_trending' }}"
           python -m app.main --source "$SOURCE"
 
-      - name: Commit feed.json and database
+      - name: Commit feed.json, images and database
         run: |
           git config user.name "TechRadar AI Bot"
           git config user.email "techradar-bot@users.noreply.github.com"
-          # Only commit feed.json (data) and db — HTML is rebuilt at deploy time
-          git add website/public/feed.json data/techradar.db || true
+          # Commit feed.json + images (binary data) + db; HTML rebuilt at deploy
+          git add website/public/feed.json website/public/images/ data/techradar.db || true
           if git diff --staged --quiet; then
             echo "Nothing new to commit"
           else

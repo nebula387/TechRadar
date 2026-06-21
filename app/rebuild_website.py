@@ -43,6 +43,24 @@ def rebuild(output_dir: str = "./website/public", base_url: str = "") -> int:
 
     pub._copy_static(css_dir, js_dir)
 
+    # Regenerate image cards from feed data
+    from app.image.card import generate_card
+    for entry in feed:
+        slug = entry.get("slug", "")
+        img_path = images_dir / f"{slug}.png"
+        if slug and not img_path.exists() and entry.get("title"):
+            card_desc = (entry.get("body_en") or entry.get("description") or "")[:160].split("\n")[0]
+            generate_card(
+                title=entry.get("title", ""),
+                description=card_desc,
+                category=entry.get("category", "Developer Tool"),
+                emoji=entry.get("emoji", "🔧"),
+                accent_color=entry.get("accent_color", "#6366f1"),
+                source=entry.get("source", "github"),
+                score=entry.get("score", 85),
+                output_path=img_path,
+            )
+
     import html as _html
     esc = _html.escape
     rebuilt = 0

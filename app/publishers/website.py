@@ -135,6 +135,8 @@ class WebsitePublisher(BasePublisher):
             "category": item.category.value,
             "score": item.score,
             "emoji": item.emoji,
+            "accent_color": item.accent_color,
+            "source": item.source.value,
             "date": datetime.utcnow().strftime("%Y-%m-%d"),
             "image_url": f"{base_url}/images/{content.website_slug}.png" if content.image_path else "",
             "tags": content.tags,
