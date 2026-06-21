@@ -16,8 +16,11 @@ venv/
 env/
 check_key.py
 
-# Local generated images (copied to website/public/images/ which IS committed)
+# Generated data — not committed (deploy step rebuilds from feed.json)
 data/images/
+website/public/posts/
+website/public/images/
+website/public/index.html
 
 # Logs (optional — remove this line if you want logs in git)
 data/techradar.log

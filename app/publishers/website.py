@@ -131,6 +131,7 @@ class WebsitePublisher(BasePublisher):
             "url": f"{base_url}/posts/{content.website_slug}.html",
             "source_url": item.url,
             "description": excerpt_ru,
+            "body_en": content.website_body_en,
             "category": item.category.value,
             "score": item.score,
             "emoji": item.emoji,
