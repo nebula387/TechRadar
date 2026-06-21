@@ -107,11 +107,12 @@ async def run_pipeline(collectors: list[BaseCollector]) -> None:
         if not content:
             continue
 
-        # Image card
+        # Image card — use generated English content, not raw (possibly non-English) source data
         card_path = images_dir / f"{content.website_slug}.png"
+        card_desc = content.website_body_en[:160].split("\n")[0]  # first sentence of English article
         generated = generate_card(
-            title=item.title,
-            description=item.description[:120],
+            title=content.website_title_en or item.title,
+            description=card_desc,
             category=item.category.value,
             emoji=item.emoji,
             accent_color=item.accent_color,

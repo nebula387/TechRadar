@@ -6,7 +6,6 @@ logger = logging.getLogger(__name__)
 
 CARD_W, CARD_H = 1080, 1080
 
-# Font paths tried in order (Linux CI first, then Windows)
 FONT_CANDIDATES = [
     "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
     "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
@@ -16,11 +15,18 @@ FONT_CANDIDATES = [
     "C:/Windows/Fonts/segoeui.ttf",
 ]
 
+FONT_REGULAR_CANDIDATES = [
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
+    "C:/Windows/Fonts/arial.ttf",
+    "C:/Windows/Fonts/segoeui.ttf",
+]
 
-def _find_font():
+
+def _find_font(candidates: list[str]) -> str | None:
     try:
-        from PIL import ImageFont
-        for path in FONT_CANDIDATES:
+        from PIL import ImageFont  # noqa: F401
+        for path in candidates:
             if Path(path).exists():
                 return path
     except ImportError:
@@ -28,10 +34,10 @@ def _find_font():
     return None
 
 
-def _load_font(size: int):
+def _load_font(size: int, bold: bool = True):
     try:
         from PIL import ImageFont
-        path = _find_font()
+        path = _find_font(FONT_CANDIDATES if bold else FONT_REGULAR_CANDIDATES)
         if path:
             return ImageFont.truetype(path, size)
         return ImageFont.load_default()
@@ -49,6 +55,11 @@ def _hex_rgb(hex_color: str) -> tuple[int, int, int]:
 
 def _darken(rgb: tuple, amount: int = 110) -> tuple:
     return tuple(max(0, c - amount) for c in rgb)
+
+
+def _ascii_only(text: str) -> str:
+    """Strip non-ASCII characters (emoji, CJK) that DejaVu can't render."""
+    return "".join(c if ord(c) < 128 else " " for c in text).strip()
 
 
 def generate_card(
@@ -75,67 +86,80 @@ def generate_card(
         draw = ImageDraw.Draw(img)
 
         pad = 56
+        inner_x = pad + 52
+        inner_w = CARD_W - pad * 2 - 104  # usable text width
 
-        # Top accent stripe
-        for y in range(10):
-            opacity_color = tuple(int(c * (1 - y / 12)) for c in accent)
-            draw.line([(0, y), (CARD_W, y)], fill=opacity_color)
+        # ── Background ───────────────────────────────────────────────────────
+        # Subtle gradient via horizontal bands
+        for y in range(CARD_H):
+            t = y / CARD_H
+            c = tuple(int(bg[i] + (accent[i] - bg[i]) * 0.08 * (1 - t)) for i in range(3))
+            draw.line([(0, y), (CARD_W, y)], fill=c)
 
         # Inner card surface
         draw.rounded_rectangle(
             [pad, pad, CARD_W - pad, CARD_H - pad],
-            radius=28,
-            fill=(22, 22, 35),
+            radius=32,
+            fill=(16, 16, 28),
         )
 
-        # Fonts
-        f_xs = _load_font(26)
-        f_sm = _load_font(34)
-        f_md = _load_font(48)
-        f_lg = _load_font(70)
-
-        inner_x = pad + 48
-        inner_y = pad + 44
-
-        # Source + score line
-        meta = f"#{source.upper()}  ·  Score {score}/100"
-        draw.text((inner_x, inner_y), meta, font=f_xs, fill=(120, 120, 145))
-
-        # Category badge
-        badge_y = inner_y + 46
-        badge_text = category.upper()
-        badge_w = len(badge_text) * 16 + 24
+        # Top accent bar
         draw.rounded_rectangle(
-            [inner_x, badge_y, inner_x + badge_w, badge_y + 38],
-            radius=6,
+            [pad, pad, CARD_W - pad, pad + 8],
+            radius=32,
             fill=accent,
         )
-        draw.text((inner_x + 12, badge_y + 6), badge_text, font=f_xs, fill=(255, 255, 255))
 
-        # Emoji
-        emoji_y = badge_y + 60
-        draw.text((inner_x, emoji_y), emoji, font=_load_font(90), fill=(255, 255, 255))
+        # ── Fonts ────────────────────────────────────────────────────────────
+        f_xs  = _load_font(24)
+        f_sm  = _load_font(32)
+        f_md  = _load_font(44)
+        f_lg  = _load_font(68)
+        f_xl  = _load_font(86)
 
-        # Title
-        title_y = emoji_y + 118
-        for line in textwrap.wrap(title, width=26)[:4]:
-            draw.text((inner_x, title_y), line, font=f_lg, fill=(240, 240, 255))
-            title_y += 82
+        y = pad + 52
 
-        # Description
-        desc_y = title_y + 14
-        for line in textwrap.wrap(description[:200], width=44)[:3]:
-            draw.text((inner_x, desc_y), line, font=f_md, fill=(160, 160, 185))
-            desc_y += 60
+        # Source + score
+        draw.text((inner_x, y), f"{source.upper()}  ·  Score {score}/100", font=f_xs, fill=(100, 100, 130))
+        y += 46
 
-        # Bottom separator + brand
-        sep_y = CARD_H - pad - 72
-        draw.line([(inner_x, sep_y), (CARD_W - pad - 48, sep_y)], fill=accent, width=2)
+        # Category badge
+        badge_text = category.upper()
+        badge_w = len(badge_text) * 15 + 28
+        draw.rounded_rectangle([inner_x, y, inner_x + badge_w, y + 40], radius=6, fill=accent)
+        draw.text((inner_x + 14, y + 7), badge_text, font=f_xs, fill=(255, 255, 255))
+        y += 68
+
+        # Accent divider
+        draw.line([(inner_x, y), (inner_x + 64, y)], fill=accent, width=4)
+        y += 28
+
+        # Title — clean ASCII only (DejaVu can't render emoji/CJK)
+        clean_title = _ascii_only(title)
+        if not clean_title:
+            clean_title = title[:60]  # last resort: raw, truncated
+        char_w = max(18, inner_w // 44)  # approximate chars per line
+        title_lines = textwrap.wrap(clean_title, width=char_w)[:4]
+        for line in title_lines:
+            draw.text((inner_x, y), line, font=f_lg, fill=(235, 235, 255))
+            y += 84
+        y += 12
+
+        # Description — 3 lines max
+        clean_desc = _ascii_only(description)
+        if clean_desc:
+            for line in textwrap.wrap(clean_desc[:240], width=int(inner_w / 22))[:3]:
+                draw.text((inner_x, y), line, font=f_md, fill=(140, 140, 170))
+                y += 56
+
+        # ── Bottom brand ─────────────────────────────────────────────────────
+        brand_y = CARD_H - pad - 68
+        draw.line([(inner_x, brand_y), (CARD_W - pad - 52, brand_y)], fill=(40, 40, 60), width=1)
         draw.text(
-            (inner_x, sep_y + 14),
+            (inner_x, brand_y + 16),
             "TechRadar AI  ·  Signal, not noise.",
             font=f_sm,
-            fill=(90, 90, 115),
+            fill=(70, 70, 95),
         )
 
         output_path.parent.mkdir(parents=True, exist_ok=True)

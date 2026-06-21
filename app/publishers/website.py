@@ -119,11 +119,13 @@ class WebsitePublisher(BasePublisher):
                 feed = []
 
         item = content.item
+        # Use generated English excerpt; fall back to raw description only if body is empty
+        excerpt = content.website_body_en[:220].replace("\n", " ").strip() if content.website_body_en else item.description[:220]
         entry = {
             "title": content.website_title_en,
             "url": f"{base_url}/posts/{content.website_slug}.html",
             "source_url": item.url,
-            "description": item.description[:200],
+            "description": excerpt,
             "category": item.category.value,
             "score": item.score,
             "emoji": item.emoji,
