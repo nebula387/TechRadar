@@ -350,12 +350,43 @@ async def _cmd_test():
         print(f"   Check TELEGRAM_ADMIN_CHAT_ID={s.telegram_admin_chat_id!r}")
 
 
+async def _cmd_clear_channel(up_to: int = 300) -> None:
+    """Delete messages 1..up_to from the channel. Silently skips non-existent IDs."""
+    s = get_settings()
+    if not s.telegram_channel_id:
+        print("❌ TELEGRAM_CHANNEL_ID not set")
+        return
+
+    deleted = 0
+    failed = 0
+    print(f"Deleting messages 1–{up_to} from {s.telegram_channel_id} ...")
+    async with httpx.AsyncClient(timeout=10) as client:
+        for msg_id in range(1, up_to + 1):
+            try:
+                resp = await client.post(
+                    _tg_url("deleteMessage"),
+                    json={"chat_id": s.telegram_channel_id, "message_id": msg_id},
+                )
+                if resp.json().get("ok"):
+                    deleted += 1
+                    print(f"  ✓ deleted message_id={msg_id}")
+            except Exception:
+                failed += 1
+            # Small delay to avoid hitting Telegram rate limits
+            if msg_id % 20 == 0:
+                await asyncio.sleep(1)
+
+    print(f"\nDone: {deleted} deleted, {up_to - deleted - failed} did not exist, {failed} errors")
+
+
 def main():
     parser = argparse.ArgumentParser(description="TechRadar AI — Approval Bot")
-    parser.add_argument("--test",    action="store_true", help="Send a test message to verify bot connection")
-    parser.add_argument("--send",    action="store_true", help="Send all pending previews to admin")
-    parser.add_argument("--pending", action="store_true", help="List pending items in console")
-    parser.add_argument("--timeout", type=int, default=0, help="Polling timeout in seconds (0=forever)")
+    parser.add_argument("--test",          action="store_true", help="Send a test message to verify bot connection")
+    parser.add_argument("--send",          action="store_true", help="Send all pending previews to admin")
+    parser.add_argument("--pending",       action="store_true", help="List pending items in console")
+    parser.add_argument("--clear-channel", action="store_true", help="Delete all messages from the Telegram channel")
+    parser.add_argument("--up-to",         type=int, default=300, help="Max message_id to try deleting (default: 300)")
+    parser.add_argument("--timeout",       type=int, default=0, help="Polling timeout in seconds (0=forever)")
     args = parser.parse_args()
 
     s = get_settings()
@@ -369,6 +400,8 @@ def main():
         asyncio.run(_cmd_list_pending())
     elif args.send:
         asyncio.run(_cmd_send_previews())
+    elif args.clear_channel:
+        asyncio.run(_cmd_clear_channel(up_to=args.up_to))
     else:
         asyncio.run(poll_loop(timeout_seconds=args.timeout))
 
