@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 def build_scheduler() -> AsyncIOScheduler:
     from app.pipeline import run_pipeline
     from app.collectors.github import GitHubCollector
+    from app.collectors.github_trending import GitHubTrendingCollector
     from app.collectors.huggingface import HuggingFaceCollector
     from app.collectors.hackernews import HackerNewsCollector
     from app.collectors.arxiv import ArxivCollector
@@ -16,7 +17,8 @@ def build_scheduler() -> AsyncIOScheduler:
     scheduler = AsyncIOScheduler(timezone="UTC")
 
     jobs = [
-        ("09:00 GitHub", CronTrigger(hour=9, minute=0), [GitHubCollector()], "github_cycle"),
+        # GitHub Trending (daily) runs first — freshest signal
+        ("09:00 GitHub Trending", CronTrigger(hour=9, minute=0), [GitHubTrendingCollector(), GitHubCollector()], "github_cycle"),
         ("13:00 HuggingFace", CronTrigger(hour=13, minute=0), [HuggingFaceCollector()], "hf_cycle"),
         ("17:00 HackerNews", CronTrigger(hour=17, minute=0), [HackerNewsCollector()], "hn_cycle"),
         ("21:00 ArXiv", CronTrigger(hour=21, minute=0), [ArxivCollector()], "arxiv_cycle"),

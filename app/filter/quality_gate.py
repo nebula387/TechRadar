@@ -15,8 +15,16 @@ HARD_REJECT_RULES: list[tuple] = [
     (lambda i: "cheat sheet" in i.title.lower(), "cheat sheet"),
 ]
 
+def _github_threshold(item: RawItem) -> bool:
+    stars_today = (item.raw_data or {}).get("stars_today", 0)
+    # Trending repo with 50+ stars today passes even with low total
+    if stars_today >= 50:
+        return True
+    return (item.stars or 0) >= 500
+
+
 SOURCE_THRESHOLDS: dict[Source, callable] = {
-    Source.GITHUB: lambda i: (i.stars or 0) >= 500,
+    Source.GITHUB: _github_threshold,
     Source.HUGGINGFACE: lambda i: (i.stars or 0) >= 100,
     Source.HACKERNEWS: lambda i: (i.stars or 0) >= 200,
     Source.PRODUCTHUNT: lambda i: (i.stars or 0) >= 100,

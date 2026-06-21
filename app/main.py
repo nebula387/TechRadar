@@ -19,6 +19,7 @@ logger = logging.getLogger(__name__)
 
 COLLECTOR_MAP = {
     "github": "app.collectors.github.GitHubCollector",
+    "github_trending": "app.collectors.github_trending.GitHubTrendingCollector",
     "hackernews": "app.collectors.hackernews.HackerNewsCollector",
     "huggingface": "app.collectors.huggingface.HuggingFaceCollector",
     "arxiv": "app.collectors.arxiv.ArxivCollector",
