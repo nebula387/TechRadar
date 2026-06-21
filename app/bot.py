@@ -311,9 +311,49 @@ async def _cmd_send_previews():
     print(f"Отправлено превью: {len(rows)} шт.")
 
 
+async def _cmd_test():
+    s = get_settings()
+    if not s.telegram_bot_token:
+        print("❌ TELEGRAM_BOT_TOKEN not set")
+        return
+    if not s.telegram_admin_chat_id:
+        print("❌ TELEGRAM_ADMIN_CHAT_ID not set — don't know where to send the test")
+        return
+
+    # Check bot identity
+    try:
+        me = await _tg_post("getMe")
+        bot_name = me.get("result", {}).get("username", "?")
+        print(f"✅ Bot connected: @{bot_name}")
+    except Exception as e:
+        print(f"❌ Bot connection failed: {e}")
+        return
+
+    # Send test message
+    try:
+        resp = await _tg_post("sendMessage", json={
+            "chat_id": s.telegram_admin_chat_id,
+            "text": (
+                "✅ *TechRadar AI — Bot connected!*\n\n"
+                "Бот работает и может отправлять тебе превью.\n\n"
+                "Следующий шаг:\n"
+                "`python -m app.main --dry-run --source github`\n"
+                "→ соберёт GitHub, пройдёт фильтрацию и пришлёт топ 5."
+            ),
+            "parse_mode": "Markdown",
+        })
+        msg_id = resp.get("result", {}).get("message_id")
+        print(f"✅ Test message sent to admin (message_id={msg_id})")
+        print(f"   Check Telegram chat ID: {s.telegram_admin_chat_id}")
+    except Exception as e:
+        print(f"❌ Failed to send message: {e}")
+        print(f"   Check TELEGRAM_ADMIN_CHAT_ID={s.telegram_admin_chat_id!r}")
+
+
 def main():
     parser = argparse.ArgumentParser(description="TechRadar AI — Approval Bot")
-    parser.add_argument("--send", action="store_true", help="Send all pending previews to admin")
+    parser.add_argument("--test",    action="store_true", help="Send a test message to verify bot connection")
+    parser.add_argument("--send",    action="store_true", help="Send all pending previews to admin")
     parser.add_argument("--pending", action="store_true", help="List pending items in console")
     parser.add_argument("--timeout", type=int, default=0, help="Polling timeout in seconds (0=forever)")
     args = parser.parse_args()
@@ -323,7 +363,9 @@ def main():
         print("❌ TELEGRAM_BOT_TOKEN not set")
         sys.exit(1)
 
-    if args.pending:
+    if args.test:
+        asyncio.run(_cmd_test())
+    elif args.pending:
         asyncio.run(_cmd_list_pending())
     elif args.send:
         asyncio.run(_cmd_send_previews())
