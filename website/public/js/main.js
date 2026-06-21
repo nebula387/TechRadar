@@ -30,6 +30,7 @@
     });
   }
 
+  // Make cards visible when IntersectionObserver fires
   var style = document.createElement("style");
   style.textContent = ".card.visible { opacity: 1 !important; transform: translateY(0) !important; }";
   document.head.appendChild(style);

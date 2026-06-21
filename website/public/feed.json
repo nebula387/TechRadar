@@ -1,0 +1,41 @@
+[
+  {
+    "title": "LLM Stock Analysis",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260621-zhulinsendaily-stock-analysis.html",
+    "source_url": "https://github.com/ZhuLinsen/daily_stock_analysis",
+    "description": "LLM 驱动的多市场股票智能分析系统：多源行情、实时新闻、决策看板与自动推送，支持零成本定时运行。 LLM-powered multi-market stock analysis system with multi-source market data, real-time news, decision dashboard, automated notifications, and cost-fr",
+    "category": "AI Model",
+    "score": 90,
+    "emoji": "📈",
+    "date": "2026-06-21",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260621-zhulinsendaily-stock-analysis.png",
+    "tags": [],
+    "slug": "20260621-zhulinsendaily-stock-analysis"
+  },
+  {
+    "title": "Deer Flow Unveiled",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260621-bytedancedeer-flow.html",
+    "source_url": "https://github.com/bytedance/deer-flow",
+    "description": "An open-source long-horizon SuperAgent harness that researches, codes, and creates. With the help of sandboxes, memories, tools, skill, subagents and message gateway, it handles different levels of ta",
+    "category": "AI Agent",
+    "score": 90,
+    "emoji": "🤖",
+    "date": "2026-06-21",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260621-bytedancedeer-flow.png",
+    "tags": [],
+    "slug": "20260621-bytedancedeer-flow"
+  },
+  {
+    "title": "AI Coding Agents",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260621-addyosmaniagent-skills.html",
+    "source_url": "https://github.com/addyosmani/agent-skills",
+    "description": "Production-grade engineering skills for AI coding agents.",
+    "category": "AI Agent",
+    "score": 92,
+    "emoji": "🚀",
+    "date": "2026-06-21",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260621-addyosmaniagent-skills.png",
+    "tags": [],
+    "slug": "20260621-addyosmaniagent-skills"
+  }
+]
