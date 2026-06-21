@@ -65,32 +65,8 @@ def _messages(prompt: str, system: str) -> list[dict]:
     return msgs
 
 
-async def groq_complete(prompt: str, system: str = "", max_tokens: int = 1024) -> str:
-    """Call Groq; automatically falls back to NVIDIA NIM if Groq quota is exhausted."""
-    s = get_settings()
-    if not s.groq_api_key:
-        raise ValueError("GROQ_API_KEY not set")
-    try:
-        data = await _post_with_retry(
-            GROQ_URL,
-            headers={"Authorization": f"Bearer {s.groq_api_key}", "Content-Type": "application/json"},
-            payload={
-                "model": s.groq_model,
-                "messages": _messages(prompt, system),
-                "temperature": 0.2,
-                "max_tokens": max_tokens,
-            },
-        )
-        return data["choices"][0]["message"]["content"]
-    except RuntimeError as e:
-        if s.nvidia_api_key:
-            logger.warning(f"Groq failed ({e}), falling back to NVIDIA NIM")
-            return await nvidia_complete(prompt, system=system, max_tokens=max_tokens)
-        raise
-
-
 async def nvidia_complete(prompt: str, system: str = "", max_tokens: int = 1024) -> str:
-    """NVIDIA NIM API — OpenAI-compatible, used as Groq fallback."""
+    """NVIDIA NIM API — primary LLM provider for filtering."""
     s = get_settings()
     if not s.nvidia_api_key:
         raise ValueError("NVIDIA_API_KEY not set")
@@ -99,6 +75,29 @@ async def nvidia_complete(prompt: str, system: str = "", max_tokens: int = 1024)
         headers={"Authorization": f"Bearer {s.nvidia_api_key}", "Content-Type": "application/json"},
         payload={
             "model": s.nvidia_model,
+            "messages": _messages(prompt, system),
+            "temperature": 0.2,
+            "max_tokens": max_tokens,
+        },
+    )
+    return data["choices"][0]["message"]["content"]
+
+
+async def groq_complete(prompt: str, system: str = "", max_tokens: int = 1024) -> str:
+    """Call NVIDIA NIM (primary); fall back to Groq if NVIDIA fails."""
+    s = get_settings()
+    if s.nvidia_api_key:
+        try:
+            return await nvidia_complete(prompt, system=system, max_tokens=max_tokens)
+        except RuntimeError as e:
+            logger.warning(f"NVIDIA failed ({e}), falling back to Groq")
+    if not s.groq_api_key:
+        raise ValueError("Neither NVIDIA_API_KEY nor GROQ_API_KEY is set")
+    data = await _post_with_retry(
+        GROQ_URL,
+        headers={"Authorization": f"Bearer {s.groq_api_key}", "Content-Type": "application/json"},
+        payload={
+            "model": s.groq_model,
             "messages": _messages(prompt, system),
             "temperature": 0.2,
             "max_tokens": max_tokens,

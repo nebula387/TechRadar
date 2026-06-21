@@ -9,9 +9,9 @@ on:
   workflow_dispatch:
     inputs:
       source:
-        description: 'Source to collect (all / github / hackernews / huggingface / arxiv / producthunt)'
+        description: 'Source (all / github / github_trending / hackernews / huggingface / arxiv / producthunt)'
         required: false
-        default: 'all'
+        default: 'github_trending'
 
 permissions:
   contents: write
@@ -20,11 +20,12 @@ permissions:
 
 concurrency:
   group: pipeline
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   run-pipeline:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -38,13 +39,14 @@ jobs:
           python-version: '3.12'
           cache: 'pip'
 
-      - name: Install system fonts (for Pillow card generation)
+      - name: Install system fonts
         run: sudo apt-get install -y fonts-dejavu-core
 
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
       - name: Run TechRadar pipeline
+        timeout-minutes: 10
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
@@ -65,7 +67,7 @@ jobs:
           MIN_SCORE: '85'
           MAX_POSTS_PER_DAY: '3'
         run: |
-          SOURCE="${{ github.event.inputs.source || 'all' }}"
+          SOURCE="${{ github.event.inputs.source || 'github_trending' }}"
           python -m app.main --source "$SOURCE"
 
       - name: Commit published content and database
@@ -82,7 +84,9 @@ jobs:
 
   deploy-pages:
     needs: run-pipeline
+    if: always()
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
