@@ -197,19 +197,33 @@ async def run_dry_run(collectors) -> None:
     )
 
 
+def _md_to_html(text: str) -> str:
+    """Convert simple *bold* and `code` markdown to HTML for Telegram."""
+    import re
+    text = re.sub(r'\*([^*]+)\*', r'<b>\1</b>', text)
+    text = re.sub(r'`([^`]+)`', r'<code>\1</code>', text)
+    text = re.sub(r'_([^_]+)_', r'<i>\1</i>', text)
+    return text
+
+
 async def _send_to_admin(admin_chat: str, bot_token: str, text: str) -> None:
+    plain = text.replace("*", "").replace("`", "").replace("_", "")
     if not admin_chat or not bot_token:
-        logger.info("[DRY RUN] " + text.replace("*", "").replace("`", ""))
+        logger.info("[DRY RUN] " + plain)
         return
     try:
         import httpx
         url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
         async with httpx.AsyncClient(timeout=15) as client:
-            await client.post(url, json={
+            resp = await client.post(url, json={
                 "chat_id": admin_chat,
-                "text": text[:4000],
-                "parse_mode": "Markdown",
+                "text": _md_to_html(text)[:4000],
+                "parse_mode": "HTML",
             })
+            if resp.status_code != 200:
+                # fallback: plain text
+                logger.warning(f"Telegram HTML send failed ({resp.status_code}), retrying as plain text")
+                await client.post(url, json={"chat_id": admin_chat, "text": plain[:4000]})
     except Exception as e:
         logger.error(f"Failed to send to admin: {e}")
 

@@ -1,3 +1,4 @@
+import asyncio
 import json
 import logging
 import re
@@ -104,9 +105,13 @@ async def judge_item(item: RawItem) -> ScoredItem | None:
 
 async def judge_items(items: list[RawItem]) -> list[ScoredItem]:
     approved = []
-    for item in items:
+    for i, item in enumerate(items):
         result = await judge_item(item)
         if result:
             approved.append(result)
+        # Respect Groq free-tier rate limit (~30 RPM = 1 req/2s).
+        # Skip delay after last item.
+        if i < len(items) - 1:
+            await asyncio.sleep(3)
     logger.info(f"LLM judge: {len(approved)} approved / {len(items)} evaluated")
     return approved

@@ -10,8 +10,7 @@ GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 
-async def _post_with_retry(url: str, headers: dict, payload: dict, max_retries: int = 3) -> dict:
-    delay = 2.0
+async def _post_with_retry(url: str, headers: dict, payload: dict, max_retries: int = 4) -> dict:
     for attempt in range(max_retries):
         try:
             t0 = time.monotonic()
@@ -20,8 +19,16 @@ async def _post_with_retry(url: str, headers: dict, payload: dict, max_retries: 
                 latency = time.monotonic() - t0
 
                 if resp.status_code == 429:
-                    wait = delay * (2 ** attempt)
-                    logger.warning(f"Rate limited, retrying in {wait:.1f}s (attempt {attempt + 1})")
+                    # Respect Retry-After header if present, else use exponential backoff
+                    retry_after = resp.headers.get("retry-after") or resp.headers.get("x-ratelimit-reset-requests")
+                    if retry_after:
+                        try:
+                            wait = float(retry_after)
+                        except ValueError:
+                            wait = 30.0 * (2 ** attempt)
+                    else:
+                        wait = 30.0 * (2 ** attempt)  # 30s, 60s, 120s, 240s
+                    logger.warning(f"Rate limited (429), waiting {wait:.0f}s (attempt {attempt + 1}/{max_retries})")
                     await asyncio.sleep(wait)
                     continue
 
@@ -42,7 +49,7 @@ async def _post_with_retry(url: str, headers: dict, payload: dict, max_retries: 
             logger.error("LLM call error on attempt %d: %s", attempt + 1, e)
 
         if attempt < max_retries - 1:
-            await asyncio.sleep(delay * (2 ** attempt))
+            await asyncio.sleep(5.0 * (2 ** attempt))
 
     raise RuntimeError(f"LLM call failed after {max_retries} attempts")
 
