@@ -128,7 +128,7 @@ async def run_dry_run(collectors) -> None:
     # ── 4. LLM judge (top 10 by stars to save quota) ────────────────────────
     candidates = sorted(passed_items, key=lambda i: i.stars or 0, reverse=True)[:10]
     lines.append(f"*🤖 LLM Judge (Groq):*")
-    lines.append(f"  Evaluating top {len(candidates)} by stars...")
+    lines.append(f"  Batch-evaluating {len(candidates)} items in 1 API call...")
 
     # Send progress so far before LLM calls (can be slow)
     await _send_to_admin(admin_chat, s.telegram_bot_token, "\n".join(lines))

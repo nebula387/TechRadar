@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
+NVIDIA_URL = "https://integrate.api.nvidia.com/v1/chat/completions"
 
 
 async def _post_with_retry(url: str, headers: dict, payload: dict, max_retries: int = 4) -> dict:
@@ -19,15 +20,17 @@ async def _post_with_retry(url: str, headers: dict, payload: dict, max_retries: 
                 latency = time.monotonic() - t0
 
                 if resp.status_code == 429:
-                    # Respect Retry-After header if present, else use exponential backoff
                     retry_after = resp.headers.get("retry-after") or resp.headers.get("x-ratelimit-reset-requests")
+                    backoff = 30.0 * (2 ** attempt)  # 30s, 60s, 120s, 240s
                     if retry_after:
                         try:
-                            wait = float(retry_after)
+                            # Cap at 120s — if Groq says wait 700s, that means daily quota is
+                            # exhausted. Retrying won't help; bail out after 2 attempts instead.
+                            wait = min(float(retry_after), 120.0)
                         except ValueError:
-                            wait = 30.0 * (2 ** attempt)
+                            wait = backoff
                     else:
-                        wait = 30.0 * (2 ** attempt)  # 30s, 60s, 120s, 240s
+                        wait = backoff
                     logger.warning(f"Rate limited (429), waiting {wait:.0f}s (attempt {attempt + 1}/{max_retries})")
                     await asyncio.sleep(wait)
                     continue
@@ -63,14 +66,39 @@ def _messages(prompt: str, system: str) -> list[dict]:
 
 
 async def groq_complete(prompt: str, system: str = "", max_tokens: int = 1024) -> str:
+    """Call Groq; automatically falls back to NVIDIA NIM if Groq quota is exhausted."""
     s = get_settings()
     if not s.groq_api_key:
         raise ValueError("GROQ_API_KEY not set")
+    try:
+        data = await _post_with_retry(
+            GROQ_URL,
+            headers={"Authorization": f"Bearer {s.groq_api_key}", "Content-Type": "application/json"},
+            payload={
+                "model": s.groq_model,
+                "messages": _messages(prompt, system),
+                "temperature": 0.2,
+                "max_tokens": max_tokens,
+            },
+        )
+        return data["choices"][0]["message"]["content"]
+    except RuntimeError as e:
+        if s.nvidia_api_key:
+            logger.warning(f"Groq failed ({e}), falling back to NVIDIA NIM")
+            return await nvidia_complete(prompt, system=system, max_tokens=max_tokens)
+        raise
+
+
+async def nvidia_complete(prompt: str, system: str = "", max_tokens: int = 1024) -> str:
+    """NVIDIA NIM API — OpenAI-compatible, used as Groq fallback."""
+    s = get_settings()
+    if not s.nvidia_api_key:
+        raise ValueError("NVIDIA_API_KEY not set")
     data = await _post_with_retry(
-        GROQ_URL,
-        headers={"Authorization": f"Bearer {s.groq_api_key}", "Content-Type": "application/json"},
+        NVIDIA_URL,
+        headers={"Authorization": f"Bearer {s.nvidia_api_key}", "Content-Type": "application/json"},
         payload={
-            "model": s.groq_model,
+            "model": s.nvidia_model,
             "messages": _messages(prompt, system),
             "temperature": 0.2,
             "max_tokens": max_tokens,
