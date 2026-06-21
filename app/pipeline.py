@@ -82,7 +82,10 @@ async def run_pipeline(collectors: list[BaseCollector]) -> None:
         return
 
     # ── Stage 2: LLM judge ───────────────────────────────────────────────────
-    scored = await judge_items(filtered)
+    # Cap candidates to avoid oversized batch requests (LLM timeout risk)
+    candidates = sorted(filtered, key=lambda i: i.stars or 0, reverse=True)[:12]
+    logger.info(f"LLM judge: evaluating top {len(candidates)} candidates")
+    scored = await judge_items(candidates)
     if not scored:
         logger.info("All items rejected by LLM judge")
         return

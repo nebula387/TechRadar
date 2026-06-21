@@ -113,8 +113,7 @@ async def judge_items(items: list[RawItem]) -> list[ScoredItem]:
     if not items:
         return []
 
-    # Groq context window limits: split into chunks of 15 to be safe
-    chunk_size = 15
+    chunk_size = 10  # keeps each batch request under 60s on NVIDIA
     approved: list[ScoredItem] = []
 
     for chunk_start in range(0, len(items), chunk_size):

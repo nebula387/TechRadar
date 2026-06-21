@@ -15,7 +15,7 @@ async def _post_with_retry(url: str, headers: dict, payload: dict, max_retries: 
     for attempt in range(max_retries):
         try:
             t0 = time.monotonic()
-            async with httpx.AsyncClient(timeout=60) as client:
+            async with httpx.AsyncClient(timeout=90) as client:
                 resp = await client.post(url, headers=headers, json=payload)
                 latency = time.monotonic() - t0
 
@@ -53,7 +53,7 @@ async def _post_with_retry(url: str, headers: dict, payload: dict, max_retries: 
         except httpx.HTTPStatusError as e:
             logger.error("HTTP %s on attempt %d: %s", e.response.status_code, attempt + 1, e)
         except Exception as e:
-            logger.error("LLM call error on attempt %d: %s", attempt + 1, e)
+            logger.error("LLM call error on attempt %d: [%s] %s", attempt + 1, type(e).__name__, e or "(no message)")
 
         if attempt < max_retries - 1:
             await asyncio.sleep(5.0 * (2 ** attempt))
