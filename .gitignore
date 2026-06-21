@@ -1,4 +1,4 @@
-# Secrets — never commit
+v# Secrets — never commit
 .env
 
 # Python
@@ -14,6 +14,7 @@ build/
 .venv/
 venv/
 env/
+check_key.py
 
 # Local generated images (copied to website/public/images/ which IS committed)
 data/images/
