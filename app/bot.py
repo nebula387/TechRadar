@@ -350,6 +350,18 @@ async def _cmd_test():
         print(f"   Check TELEGRAM_ADMIN_CHAT_ID={s.telegram_admin_chat_id!r}")
 
 
+def _normalize_channel_id(channel_id: str) -> str:
+    """Convert t.me/name or plain name to @name for Bot API."""
+    cid = channel_id.strip()
+    if cid.startswith("https://t.me/"):
+        cid = "@" + cid[len("https://t.me/"):]
+    elif cid.startswith("t.me/"):
+        cid = "@" + cid[len("t.me/"):]
+    elif cid and not cid.startswith("@") and not cid.startswith("-"):
+        cid = "@" + cid
+    return cid
+
+
 async def _cmd_clear_channel(up_to: int = 300) -> None:
     """Delete messages 1..up_to from the channel. Silently skips non-existent IDs."""
     s = get_settings()
@@ -357,26 +369,45 @@ async def _cmd_clear_channel(up_to: int = 300) -> None:
         print("❌ TELEGRAM_CHANNEL_ID not set")
         return
 
+    channel_id = _normalize_channel_id(s.telegram_channel_id)
+    print(f"Channel ID: {channel_id}")
+
+    # Check bot permissions first
+    async with httpx.AsyncClient(timeout=10) as client:
+        me = await client.post(_tg_url("getMe"))
+        bot_id = me.json().get("result", {}).get("id")
+        chat_resp = await client.post(_tg_url("getChatMember"), json={"chat_id": channel_id, "user_id": bot_id})
+        chat_data = chat_resp.json()
+        if not chat_data.get("ok"):
+            print(f"❌ Can't check bot status: {chat_data.get('description')}")
+            print("   Make sure the bot is an admin of the channel with 'Delete messages' permission")
+            return
+        status = chat_data.get("result", {}).get("status")
+        can_delete = chat_data.get("result", {}).get("can_delete_messages", False)
+        print(f"Bot status in channel: {status}, can_delete_messages: {can_delete}")
+        if status not in ("administrator", "creator") or not can_delete:
+            print("❌ Bot is not an admin or doesn't have 'Delete messages' permission")
+            print("   Go to channel → Edit → Administrators → add your bot → enable 'Delete messages'")
+            return
+
     deleted = 0
-    failed = 0
-    print(f"Deleting messages 1–{up_to} from {s.telegram_channel_id} ...")
+    print(f"Deleting messages 1–{up_to} from {channel_id} ...")
     async with httpx.AsyncClient(timeout=10) as client:
         for msg_id in range(1, up_to + 1):
             try:
                 resp = await client.post(
                     _tg_url("deleteMessage"),
-                    json={"chat_id": s.telegram_channel_id, "message_id": msg_id},
+                    json={"chat_id": channel_id, "message_id": msg_id},
                 )
                 if resp.json().get("ok"):
                     deleted += 1
                     print(f"  ✓ deleted message_id={msg_id}")
             except Exception:
-                failed += 1
-            # Small delay to avoid hitting Telegram rate limits
+                pass
             if msg_id % 20 == 0:
                 await asyncio.sleep(1)
 
-    print(f"\nDone: {deleted} deleted, {up_to - deleted - failed} did not exist, {failed} errors")
+    print(f"\nDone: {deleted} messages deleted")
 
 
 def main():

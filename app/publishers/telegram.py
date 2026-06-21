@@ -16,10 +16,21 @@ class TelegramPublisher(BasePublisher):
         s = get_settings()
         return s.enable_telegram and bool(s.telegram_bot_token) and bool(s.telegram_channel_id)
 
+    @staticmethod
+    def _normalize(channel_id: str) -> str:
+        cid = channel_id.strip()
+        if cid.startswith("https://t.me/"):
+            return "@" + cid[len("https://t.me/"):]
+        if cid.startswith("t.me/"):
+            return "@" + cid[len("t.me/"):]
+        if cid and not cid.startswith("@") and not cid.startswith("-"):
+            return "@" + cid
+        return cid
+
     async def publish(self, content: GeneratedContent) -> dict:
         s = get_settings()
         base = f"https://api.telegram.org/bot{s.telegram_bot_token}"
-        channel = s.telegram_channel_id
+        channel = self._normalize(s.telegram_channel_id)
         image_path = Path(content.image_path) if content.image_path else None
 
         async with httpx.AsyncClient(timeout=30) as client:
