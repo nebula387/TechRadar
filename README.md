@@ -2,46 +2,51 @@
 
 > **Принцип: публикуй МЕНЬШЕ, но ЛУЧШЕ. Качество важнее количества.**
 
-Полностью автоматизированная система контент-дистрибуции для AI и dev-инструментов.  
-Собирает тренды, жёстко фильтрует их, генерирует посты через бесплатные LLM и одновременно публикует на несколько платформ.
+Полностью автоматизированная система контент-дистрибуции для AI и dev-инструментов.
+Собирает тренды, жёстко фильтрует их через LLM, генерирует посты и одновременно публикует на несколько платформ.
+
+🔗 **Сайт:** <https://nebula387.github.io/TechRadar>  
+📱 **Telegram:** <https://t.me/ai_tech_radar>
 
 ---
 
 ## Платформы
 
-| Канал | Язык | Формат |
-|---|---|---|
-| 📱 Telegram | Русский | Короткий пост + карточка-изображение |
-| 📷 Instagram | Английский | Пост с карточкой + хэштеги |
-| 🌐 Website (GitHub Pages) | Английский | Полная статья |
-| 🟠 Reddit *(позже)* | Английский | Пост в r/MachineLearning и др. |
-| 🐦 Twitter/X *(позже)* | Английский | Тред 3–5 твитов |
-| 💼 LinkedIn *(позже)* | Английский | Профессиональный пост |
+| Канал | Язык | Формат | Статус |
+| --- | --- | --- | --- |
+| 📱 Telegram (`@ai_tech_radar`) | Русский 🇷🇺 | Короткий пост + карточка | ✅ Работает |
+| 🌐 Website (GitHub Pages) | Английский 🇬🇧 | Полная статья | ✅ Работает |
+| 🟠 Reddit | Английский 🇬🇧 | Пост в r/MachineLearning | 🔜 Позже |
+| 🐦 Twitter/X | Английский 🇬🇧 | Тред 3–5 твитов | 🔜 Позже |
+| 💼 LinkedIn | Английский 🇬🇧 | Профессиональный пост | 🔜 Позже |
 
 ---
 
 ## Как это работает
 
 ```
-[Коллекторы: GitHub, HN, HuggingFace, ArXiv]
+[Коллекторы: GitHub Trending, HN, HuggingFace, ArXiv, ProductHunt]
         ↓
-[Stage 1: Жёсткая предварительная фильтрация]
-  — отбрасывает туториалы, "awesome" списки, слишком мало звёзд
+[Stage 1: Жёсткая предварительная фильтрация — без LLM]
+  — отбрасывает туториалы, "awesome" списки, мало звёзд/апвоутов
         ↓
-[Stage 2: LLM-судья (Groq, бесплатно)]
+[Stage 2: LLM-судья — ОДИН батч-запрос на все кандидаты]
+  — NVIDIA NIM (primary) → Groq (fallback)
   — ставит оценку 0–100, одобряет только ≥ 85
   — ожидаемый процент отклонения: 70–85%
         ↓
-[Генерация контента (OpenRouter, бесплатные модели)]
-  — Telegram: русский пост
+[Генерация контента — asyncio.gather(), параллельно]
+  — Telegram: русский пост (OpenRouter → NVIDIA)
   — Instagram: подпись + хэштеги
-  — Website: SEO-статья 300–400 слов
+  — Website: SEO-статья 300–400 слов на английском
         ↓
-[Генерация изображения 1080×1080 (Pillow)]
+[Генерация карточки 1080×1080 (Pillow, пиксельный рендеринг)]
         ↓
-[Публикация параллельно на все включённые каналы]
+[Публикация на все включённые каналы]
+  — Telegram: фото + русская подпись до 1024 символов
+  — Website: feed.json + PNG коммитятся в git
         ↓
-[Сохранение в SQLite: дедупликация, история]
+[SQLite: дедупликация, история, дневной лимит]
 ```
 
 **Максимум 3 публикации в день.** Лучше молчать, чем публиковать шум.
@@ -73,85 +78,110 @@ cp .env.example .env
 Минимальный набор для старта:
 - `TELEGRAM_BOT_TOKEN` — токен бота (получить у [@BotFather](https://t.me/botfather))
 - `TELEGRAM_CHANNEL_ID` — username канала (`@mychannel`) или numeric ID
-- `GROQ_API_KEY` — [console.groq.com](https://console.groq.com/) (бесплатно)
+- `NVIDIA_API_KEY` — [build.nvidia.com](https://build.nvidia.com/) (бесплатные кредиты при регистрации)
 - `OPENROUTER_API_KEY` — [openrouter.ai](https://openrouter.ai/) (бесплатно)
 
-### 4. Запустить один раз (тест)
+### 4. Добавить бота в канал как администратора
+
+Бот должен быть добавлен в канал `@ai_tech_radar` с правом **"Post Messages"**:
+
+1. Открыть канал → Администраторы → Добавить администратора
+2. Найти бота по username
+3. Включить права: Post Messages
+
+### 5. Тестовый запуск
 
 ```bash
-python -m app.main --source github
+python -m app.main --source github_trending --dry-run   # без публикации
+python -m app.main --source github_trending              # реальная публикация
 ```
-
-### 5. Запустить по расписанию (daemon)
-
-```bash
-python -m app.main --schedule
-```
-
-Расписание (UTC):
-- 09:00 — GitHub
-- 13:00 — HuggingFace  
-- 17:00 — HackerNews
-- 21:00 — ArXiv
 
 ---
 
-## Настройка GitHub Actions (автоматический запуск)
+## CLI-команды
 
-### 1. Создать публичный репозиторий на GitHub
+```bash
+# Запуск пайплайна
+python -m app.main --source github_trending
+python -m app.main --source all
+python -m app.main --dry-run --source github_trending   # без публикации, превью в бот
 
-Уже готово: `https://github.com/nebula387/TechRadar`
+# Тест карточек (генерирует 3 PNG в data/test_cards/)
+python test_card.py
 
-### 2. Добавить секреты в GitHub
+# Telegram-бот
+python -m app.bot                      # запустить бот (для режима одобрения)
+python -m app.bot --test               # проверить подключение
+python -m app.bot --clear-channel      # удалить все сообщения из канала
 
-Перейти: **Settings → Secrets and variables → Actions → New repository secret**
+# Управление базой данных
+python -m app.manage stats             # статистика
+python -m app.manage list              # список опубликованных
+python -m app.manage clear             # удалить все записи
+python -m app.manage clear --date 2026-06-22   # удалить за дату
+
+# Сайт
+python -m app.rebuild_website          # пересобрать HTML из feed.json
+```
+
+---
+
+## Настройка GitHub Actions
+
+### 1. Добавить секреты в GitHub
+
+Путь: Settings → Secrets and variables → Actions → Secrets tab
 
 | Секрет | Описание |
 |---|---|
-| `TELEGRAM_BOT_TOKEN` | Токен Telegram-бота |
-| `TELEGRAM_CHANNEL_ID` | ID/username канала |
-| `GROQ_API_KEY` | Groq API ключ |
-| `OPENROUTER_API_KEY` | OpenRouter API ключ |
-| `GH_TOKEN` | GitHub Personal Access Token (для повышения rate limit) |
-| `INSTAGRAM_ACCESS_TOKEN` | Токен Instagram Graph API *(опционально)* |
-| `INSTAGRAM_ACCOUNT_ID` | ID Instagram бизнес-аккаунта *(опционально)* |
+| `TELEGRAM_BOT_TOKEN` | Токен Telegram-бота (от @BotFather) |
+| `TELEGRAM_CHANNEL_ID` | Username канала, например `@ai_tech_radar` |
+| `TELEGRAM_ADMIN_CHAT_ID` | Ваш личный chat ID (от @userinfobot) |
+| `NVIDIA_API_KEY` | NVIDIA NIM API key (build.nvidia.com) |
+| `GROQ_API_KEY` | Groq API key (console.groq.com) |
+| `OPENROUTER_API_KEY` | OpenRouter API key (openrouter.ai) |
 
-### 3. Добавить переменные (Variables)
-
-Перейти: **Settings → Secrets and variables → Actions → Variables tab**
+### 2. Добавить переменные (Variables tab)
 
 | Переменная | Значение |
 |---|---|
 | `WEBSITE_BASE_URL` | `https://nebula387.github.io/TechRadar` |
 | `ENABLE_INSTAGRAM` | `false` (включить после настройки) |
 
-### 4. Включить GitHub Pages
+### 3. Включить GitHub Pages
 
-Перейти: **Settings → Pages**
-- Source: **GitHub Actions**
+Путь: Settings → Pages → Source: GitHub Actions
 
-После первого запуска пайплайна сайт будет доступен по адресу:  
-`https://nebula387.github.io/TechRadar`
+После первого успешного запуска сайт будет на `https://nebula387.github.io/TechRadar`.
 
-### 5. Первый ручной запуск
+### 4. Ручной запуск
 
-Перейти: **Actions → TechRadar AI Pipeline → Run workflow**
+Путь: Actions → TechRadar AI Pipeline → Run workflow
+
+Параметры:
+
+- `source` — источник (по умолчанию `github_trending`)
+- `enable_telegram` — публиковать в Telegram (`true`/`false`, по умолчанию `true`)
+
+Поставить `enable_telegram: false` чтобы пересобрать сайт без повторной отправки в Telegram.
 
 ---
 
-## Настройка Instagram
+## Архитектура сайта (Rebuild-at-Deploy)
 
-Instagram требует Meta Developer App и бизнес-аккаунт.
+HTML никогда не коммитится в git. В репозитории хранятся только данные:
 
-1. Создать приложение на [developers.facebook.com](https://developers.facebook.com/)
-2. Подключить Instagram Business Account к Facebook Page
-3. Добавить продукт "Instagram Graph API"
-4. Получить `INSTAGRAM_ACCOUNT_ID` (числовой ID аккаунта)
-5. Получить долгосрочный `INSTAGRAM_ACCESS_TOKEN` (действителен 60 дней, нужно обновлять)
-6. Установить `ENABLE_INSTAGRAM=true` в `.env` или переменных GitHub
+```
+run-pipeline job:
+  collect → filter → LLM → generate → publish
+  git commit: feed.json + images/ + techradar.db
 
-> **Важно:** Instagram требует, чтобы изображение было доступно по публичному URL.  
-> Это работает автоматически после деплоя сайта на GitHub Pages.
+deploy-pages job:
+  python -m app.rebuild_website   ← пересобирает весь HTML из feed.json
+  deploy to GitHub Pages
+```
+
+Это значит: любое изменение шаблонов/CSS автоматически применяется ко ВСЕМ историческим постам при следующем деплое.
 
 ---
 
@@ -160,55 +190,59 @@ Instagram требует Meta Developer App и бизнес-аккаунт.
 ```
 TechRadar/
 ├── app/
-│   ├── collectors/        # GitHub, HN, HuggingFace, ArXiv, ProductHunt
-│   ├── filter/            # Двухступенчатая фильтрация
+│   ├── collectors/           # GitHub, HN, HuggingFace, ArXiv, ProductHunt
+│   ├── filter/
 │   │   ├── quality_gate.py   # Stage 1: жёсткие правила (без LLM)
-│   │   └── llm_judge.py      # Stage 2: LLM-оценка (Groq)
-│   ├── llm/               # Клиент + генерация контента
-│   ├── image/             # Карточки 1080×1080 (Pillow)
-│   ├── publishers/        # Telegram, Instagram, Website
-│   ├── database/          # SQLite: дедупликация, история
-│   ├── scheduler/         # APScheduler: 4 цикла в день
-│   ├── pipeline.py        # Главный пайплайн
-│   └── main.py            # CLI точка входа
+│   │   └── llm_judge.py      # Stage 2: батч LLM-оценка (1 API-вызов)
+│   ├── llm/
+│   │   ├── client.py         # NVIDIA→Groq (фильтр), OpenRouter→NVIDIA (генерация)
+│   │   └── generate.py       # Telegram RU + Instagram + Website EN
+│   ├── image/
+│   │   └── card.py           # Pillow 1080×1080
+│   ├── publishers/
+│   │   ├── telegram.py       # Канал @ai_tech_radar
+│   │   ├── instagram.py
+│   │   └── website.py        # feed.json + images/
+│   ├── database/
+│   │   └── storage.py        # SQLite: дедупликация, дневной лимит
+│   ├── pipeline.py           # Главный пайплайн
+│   ├── main.py               # CLI
+│   ├── bot.py                # Telegram-бот (режим одобрения + --clear-channel)
+│   ├── manage.py             # DB-admin: stats / list / clear
+│   └── rebuild_website.py    # Пересборка HTML из feed.json
+│
 ├── website/
-│   ├── static/            # Исходники CSS/JS
-│   └── public/            # Генерируемый сайт (деплоить эту папку)
-│       ├── index.html
-│       ├── posts/         # Статьи
-│       ├── images/        # Карточки
-│       ├── css/
-│       └── js/
-├── tests/                 # Юнит-тесты
-├── data/                  # SQLite БД + логи (gitignored частично)
+│   ├── static/css/style.css
+│   ├── static/js/main.js
+│   └── public/
+│       ├── feed.json         # ✅ в git — источник правды для всех постов
+│       └── images/           # ✅ в git — PNG карточки
+│       # posts/ и index.html — в .gitignore, генерируются при деплое
+│
+├── data/
+│   └── techradar.db          # ✅ в git — дедупликация + счётчик
+│
+├── test_card.py              # Визуальный тест карточек
 ├── .env.example
 ├── requirements.txt
 └── .github/workflows/
-    ├── pipeline.yml       # Основной пайплайн (cron + manual)
-    └── tests.yml          # Тесты при каждом пуше
+    └── pipeline.yml          # Cron 4×/день + ручной запуск
 ```
 
 ---
 
-## Запуск тестов
+## LLM-модели (только бесплатные)
 
-```bash
-pytest tests/ -v
-```
+Фильтрация (NVIDIA NIM primary → Groq fallback):
 
----
+- `meta/llama-3.3-70b-instruct` — основная (NVIDIA NIM, щедрые бесплатные кредиты)
+- `llama-3.3-70b-versatile` — резерв (Groq, строгие TPM-лимиты)
 
-## LLM модели (только бесплатные)
+Генерация (OpenRouter primary → NVIDIA fallback):
 
-**Groq** (быстро, для фильтрации):
-- `llama-3.3-70b-versatile` — основная
+- `google/gemma-2-9b-it:free` — основная (OpenRouter)
 
-**OpenRouter** (генерация, суффикс `:free`):
-- `mistralai/mistral-7b-instruct:free` — основная
-- `google/gemma-2-9b-it:free` — резерв
-- `meta-llama/llama-3.1-8b-instruct:free` — резерв
-
-Правило: если квота исчерпана — пропустить публикацию, залогировать, повторить в следующем цикле.
+**Правило:** На 4xx-ошибке — сразу fail, без повторов. На 429 — ждать до 120 сек, потом переключиться на резерв. Никогда не платить за модели.
 
 ---
 
@@ -217,34 +251,50 @@ pytest tests/ -v
 | Переменная | Описание | По умолчанию |
 |---|---|---|
 | `TELEGRAM_BOT_TOKEN` | Токен бота | — |
-| `TELEGRAM_CHANNEL_ID` | ID канала | — |
-| `GITHUB_TOKEN` | GitHub PAT (rate limit) | — |
+| `TELEGRAM_CHANNEL_ID` | ID/username канала | — |
+| `TELEGRAM_ADMIN_CHAT_ID` | Ваш личный chat ID | — |
+| `NVIDIA_API_KEY` | NVIDIA NIM API key | — |
+| `NVIDIA_MODEL` | Модель NVIDIA | `meta/llama-3.3-70b-instruct` |
 | `GROQ_API_KEY` | Groq API key | — |
-| `GROQ_MODEL` | Groq модель | `llama-3.3-70b-versatile` |
+| `GROQ_MODEL` | Модель Groq | `llama-3.3-70b-versatile` |
 | `OPENROUTER_API_KEY` | OpenRouter API key | — |
-| `OPENROUTER_MODEL` | OpenRouter модель | `mistralai/mistral-7b-instruct:free` |
-| `INSTAGRAM_ACCESS_TOKEN` | Instagram токен | — |
-| `INSTAGRAM_ACCOUNT_ID` | Instagram аккаунт ID | — |
-| `MIN_SCORE` | Минимальный скор для публикации | `85` |
-| `MAX_POSTS_PER_DAY` | Максимум публикаций в день | `3` |
-| `ENABLE_TELEGRAM` | Включить Telegram | `true` |
-| `ENABLE_INSTAGRAM` | Включить Instagram | `false` |
-| `ENABLE_WEBSITE` | Включить сайт | `true` |
+| `OPENROUTER_MODEL` | Модель OpenRouter | `google/gemma-2-9b-it:free` |
+| `MIN_SCORE` | Минимальный скор | `85` |
+| `MAX_POSTS_PER_DAY` | Лимит публикаций/день | `3` |
+| `ENABLE_TELEGRAM` | Публиковать в Telegram | `true` |
+| `ENABLE_WEBSITE` | Публиковать на сайт | `true` |
 | `WEBSITE_BASE_URL` | URL сайта | `https://nebula387.github.io/TechRadar` |
-| `WEBSITE_OUTPUT_DIR` | Папка вывода сайта | `./website/public` |
+| `WEBSITE_OUTPUT_DIR` | Папка вывода | `./website/public` |
 
 ---
 
-## Добавление новых каналов позже
+## Диагностика — Telegram не получает сообщения
 
-Для Reddit, Twitter, LinkedIn — нужно:
-1. Установить `ENABLE_REDDIT=true` / `ENABLE_TWITTER=true` / `ENABLE_LINKEDIN=true` в `.env`
-2. Добавить соответствующие API-ключи
-3. Раскомментировать публишеры в `app/publishers/`
-4. Добавить в список в `app/pipeline.py`
+Проверить по порядку:
+
+1. **Бот — администратор канала?**  
+   Канал → Управление → Администраторы → бот должен быть с правом "Post Messages".
+
+2. **Дневной лимит не исчерпан?**
+
+   ```bash
+   python -m app.manage stats
+   ```
+
+   Если сегодня уже 3 публикации — пайплайн пропускает запуск.
+
+3. **Посмотреть логи GitHub Actions**  
+   Actions → последний запуск → шаг "Run TechRadar pipeline".  
+   Ключевые фразы в логе:
+   - `"Daily limit reached"` — лимит исчерпан
+   - `"All items rejected by LLM judge"` — ничего не прошло фильтр
+   - `"Published to telegram"` — успешно
+
+4. **Неверный формат TELEGRAM_CHANNEL_ID в Secrets?**  
+   Должен быть `@ai_tech_radar` (не `t.me/...`).
 
 ---
 
 ## Лицензия
 
-MIT — свободное использование для любых целей.
+MIT — свободное использование.
