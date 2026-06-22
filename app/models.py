@@ -59,6 +59,8 @@ class GeneratedContent(BaseModel):
     reddit_body_en: str
     website_title_en: str
     website_body_en: str
+    website_title_ru: str = ""
+    website_body_ru: str = ""
     website_slug: str
     tags: list[str]
     image_path: str | None = None

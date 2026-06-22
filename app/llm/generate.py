@@ -65,6 +65,32 @@ Rules:
     )
 
 
+async def _website_ru(item: ScoredItem) -> tuple[str, str]:
+    prompt = f"""Напиши короткую статью (300–400 слов) на РУССКОМ языке для блога о разработке и ИИ.
+
+Тема: {item.title}
+Описание: {item.description[:400]}
+Почему важно: {item.reason}
+Категория: {item.category.value}
+Аудитория: {item.audience}
+
+Структура:
+1. Заголовок (до 70 символов) — первая строка, без префикса и меток
+2. Вводный абзац (что это и почему важно прямо сейчас)
+3. Ключевые особенности и что делает это уникальным (2–3 абзаца)
+4. Кому нужно и практическое применение
+5. Заключительная мысль
+
+Тон: экспертный, чёткий, без воды. Читатель — опытный разработчик или ML-инженер.
+Начни сразу с заголовка на первой строке."""
+
+    response = await openrouter_complete(prompt, max_tokens=700)
+    lines = response.strip().split("\n")
+    title = lines[0].lstrip("#").strip()
+    body = "\n".join(lines[1:]).strip()
+    return title, body
+
+
 async def _website(item: ScoredItem) -> tuple[str, str]:
     prompt = f"""Write a short tech article (300–400 words) for a senior-developer blog.
 
@@ -92,10 +118,11 @@ Tone: expert, clear, zero fluff. Start with the headline on the very first line.
 
 async def generate_content(item: ScoredItem) -> GeneratedContent | None:
     try:
-        telegram_text, (ig_caption, ig_hashtags), (web_title, web_body) = await asyncio.gather(
+        telegram_text, (ig_caption, ig_hashtags), (web_title, web_body), (web_title_ru, web_body_ru) = await asyncio.gather(
             _telegram(item),
             _instagram(item),
             _website(item),
+            _website_ru(item),
         )
 
         return GeneratedContent(
@@ -109,6 +136,8 @@ async def generate_content(item: ScoredItem) -> GeneratedContent | None:
             reddit_body_en=item.description,
             website_title_en=web_title,
             website_body_en=web_body,
+            website_title_ru=web_title_ru,
+            website_body_ru=web_body_ru,
             website_slug=_slug(item.title),
             tags=item.tags[:5],
         )

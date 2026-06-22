@@ -64,19 +64,21 @@ class WebsitePublisher(BasePublisher):
         item = content.item
         esc = html.escape
         img_url = f"{base_url}/images/{content.website_slug}.png" if content.image_path else ""
-        img_tag = f'<img class="post-cover" src="{esc(img_url)}" alt="{esc(content.website_title_en)}">' if img_url else ""
+        img_tag = f'<img class="post-cover" src="{esc(img_url)}" alt="{esc(content.website_title_ru or content.website_title_en)}">' if img_url else ""
         tags_html = "".join(f'<span class="tag">{esc(t)}</span>' for t in content.tags)
-        body_html = esc(content.website_body_en).replace("\n\n", "</p><p>").replace("\n", "<br>")
-        date_str = datetime.utcnow().strftime("%B %d, %Y")
+        body_ru = content.website_body_ru or content.website_body_en
+        body_html = esc(body_ru).replace("\n\n", "</p><p>").replace("\n", "<br>")
+        title_ru = content.website_title_ru or content.website_title_en
+        date_str = datetime.utcnow().strftime("%d.%m.%Y")
 
         return f"""<!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{esc(content.website_title_en)} — TechRadar AI</title>
+  <title>{esc(title_ru)} — TechRadar AI</title>
   <meta name="description" content="{esc(item.description[:160])}">
-  <meta property="og:title" content="{esc(content.website_title_en)}">
+  <meta property="og:title" content="{esc(title_ru)}">
   <meta property="og:description" content="{esc(item.description[:200])}">
   {f'<meta property="og:image" content="{esc(img_url)}">' if img_url else ""}
   <meta name="twitter:card" content="summary_large_image">
@@ -84,28 +86,29 @@ class WebsitePublisher(BasePublisher):
 </head>
 <body>
   <nav class="navbar">
-    <a href="{base_url}" class="logo">🔭 TechRadar AI</a>
-    <span class="nav-tagline">Signal, not noise.</span>
+    <a href="{base_url}" class="logo">&#128301; TechRadar AI</a>
+    <span class="nav-tagline">Сигнал, не шум.</span>
   </nav>
   <main class="post-page">
     {img_tag}
     <div class="post-meta">
-      <span class="score-badge">Score {item.score}/100</span>
+      <span class="score-badge">Рейтинг {item.score}/100</span>
       <span class="category-badge">{esc(item.category.value)}</span>
       <span class="date">{date_str}</span>
     </div>
-    <h1>{esc(item.emoji)} {esc(content.website_title_en)}</h1>
+    <h1>{esc(item.emoji)} {esc(title_ru)}</h1>
     <div class="tags">{tags_html}</div>
     <div class="post-body"><p>{body_html}</p></div>
     <div class="source-link">
-      <a href="{esc(item.url)}" target="_blank" rel="noopener noreferrer">→ View Original Source</a>
+      <a href="{esc(item.url)}" target="_blank" rel="noopener noreferrer">&#8594; Смотреть источник</a>
     </div>
     <div class="post-channels">
-      <strong>Also published on:</strong>
-      <a href="https://t.me/techradar_ai_ru" target="_blank">Telegram</a>
+      <strong>Также опубликовано в:</strong>
+      <a href="https://t.me/ai_tech_radar" target="_blank">Telegram</a>
     </div>
   </main>
-  <footer><p>© TechRadar AI — Powered by AI, curated by standards.</p></footer>
+  <footer><p>&#169; TechRadar AI &#8212; Работает на ИИ, отобрано по стандартам.</p></footer>
+  <script src="{base_url}/js/main.js" defer></script>
 </body>
 </html>"""
 
@@ -128,10 +131,12 @@ class WebsitePublisher(BasePublisher):
 
         entry = {
             "title": content.website_title_en,
+            "title_ru": content.website_title_ru,
             "url": f"{base_url}/posts/{content.website_slug}.html",
             "source_url": item.url,
             "description": excerpt_ru,
             "body_en": content.website_body_en,
+            "body_ru": content.website_body_ru,
             "category": item.category.value,
             "score": item.score,
             "emoji": item.emoji,
@@ -172,29 +177,29 @@ class WebsitePublisher(BasePublisher):
                 pass
 
         index_html = f"""<!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TechRadar AI — Signal, not noise.</title>
-  <meta name="description" content="Curated AI and developer tools. Automated discovery, rigorous filtering — only what matters.">
+  <title>TechRadar AI — Сигнал, не шум.</title>
+  <meta name="description" content="Лучшее в мире ИИ и инструментов разработчика. Автоматический сбор, строгая фильтрация — только то, что важно.">
   <meta property="og:title" content="TechRadar AI">
-  <meta property="og:description" content="Curated AI & dev tools. Signal, not noise.">
+  <meta property="og:description" content="ИИ и инструменты разработчика. Сигнал, не шум.">
   <link rel="stylesheet" href="{base_url}/css/style.css">
 </head>
 <body>
   <nav class="navbar">
-    <a href="{base_url}" class="logo">🔭 TechRadar AI</a>
-    <span class="nav-tagline">Signal, not noise.</span>
+    <a href="{base_url}" class="logo">&#128301; TechRadar AI</a>
+    <span class="nav-tagline">Сигнал, не шум.</span>
   </nav>
   <header class="hero">
-    <h1>The best in AI &amp; Developer Tools</h1>
-    <p>Automated discovery · Rigorous filtering · Only what matters.</p>
+    <h1>Лучшее в ИИ и инструментах разработчика</h1>
+    <p>Автоматический сбор · Строгая фильтрация · Только то, что важно.</p>
   </header>
   <main class="grid">
-    {cards_html if cards_html else '<p class="empty">No posts yet. Check back soon.</p>'}
+    {cards_html if cards_html else '<p class="empty">Постов пока нет. Заходите позже.</p>'}
   </main>
-  <footer><p>© TechRadar AI — Powered by AI, curated by standards.</p></footer>
+  <footer><p>&#169; TechRadar AI &#8212; Работает на ИИ, отобрано по стандартам.</p></footer>
   <script src="{base_url}/js/main.js" defer></script>
 </body>
 </html>"""

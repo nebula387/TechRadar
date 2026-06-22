@@ -71,11 +71,13 @@ def rebuild(output_dir: str = "./website/public", base_url: str = "") -> int:
             continue
 
         img_url = entry.get("image_url", "")
-        img_tag = f'<img class="post-cover" src="{esc(img_url)}" alt="{esc(entry.get("title",""))}">' if img_url else ""
+        img_tag = f'<img class="post-cover" src="{esc(img_url)}" alt="{esc(entry.get("title_ru") or entry.get("title",""))}">' if img_url else ""
         tags_html = "".join(f'<span class="tag">{esc(t)}</span>' for t in entry.get("tags", []))
-        body_en = entry.get("body_en", "")
-        body_html = esc(body_en).replace("\n\n", "</p><p>").replace("\n", "<br>") if body_en else f"<i>{esc(entry.get('description',''))}</i>"
-        title = entry.get("title", "")
+        body_ru = entry.get("body_ru", "") or entry.get("body_en", "")
+        body_html = esc(body_ru).replace("\n\n", "</p><p>").replace("\n", "<br>") if body_ru else f"<i>{esc(entry.get('description',''))}</i>"
+        title_en = entry.get("title", "")
+        title_ru = entry.get("title_ru", "") or title_en
+        emoji = entry.get("emoji", "")
         date_str = entry.get("date", "")
         score = entry.get("score", 0)
         category = entry.get("category", "")
@@ -83,13 +85,13 @@ def rebuild(output_dir: str = "./website/public", base_url: str = "") -> int:
         desc_ru = entry.get("description", "")
 
         post_html = f"""<!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{esc(title)} — TechRadar AI</title>
+  <title>{esc(title_ru)} — TechRadar AI</title>
   <meta name="description" content="{esc(desc_ru[:160])}">
-  <meta property="og:title" content="{esc(title)}">
+  <meta property="og:title" content="{esc(title_ru)}">
   <meta property="og:description" content="{esc(desc_ru[:200])}">
   {f'<meta property="og:image" content="{esc(img_url)}">' if img_url else ""}
   <meta name="twitter:card" content="summary_large_image">
@@ -98,27 +100,27 @@ def rebuild(output_dir: str = "./website/public", base_url: str = "") -> int:
 <body>
   <nav class="navbar">
     <a href="{base_url}" class="logo">&#128301; TechRadar AI</a>
-    <span class="nav-tagline">Signal, not noise.</span>
+    <span class="nav-tagline">Сигнал, не шум.</span>
   </nav>
   <main class="post-page">
     {img_tag}
     <div class="post-meta">
-      <span class="score-badge">Score {score}/100</span>
+      <span class="score-badge">Рейтинг {score}/100</span>
       <span class="category-badge">{esc(category)}</span>
       <span class="date">{esc(date_str)}</span>
     </div>
-    <h1>{esc(title)}</h1>
+    <h1>{esc(emoji)} {esc(title_ru)}</h1>
     <div class="tags">{tags_html}</div>
     <div class="post-body"><p>{body_html}</p></div>
     <div class="source-link">
-      <a href="{esc(source_url)}" target="_blank" rel="noopener noreferrer">&#8594; View Original Source</a>
+      <a href="{esc(source_url)}" target="_blank" rel="noopener noreferrer">&#8594; Смотреть источник</a>
     </div>
     <div class="post-channels">
-      <strong>Also published on:</strong>
+      <strong>Также опубликовано в:</strong>
       <a href="https://t.me/ai_tech_radar" target="_blank">Telegram</a>
     </div>
   </main>
-  <footer><p>&#169; TechRadar AI &#8212; Powered by AI, curated by standards.</p></footer>
+  <footer><p>&#169; TechRadar AI &#8212; Работает на ИИ, отобрано по стандартам.</p></footer>
   <script src="{base_url}/js/main.js" defer></script>
 </body>
 </html>"""
