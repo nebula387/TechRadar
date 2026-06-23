@@ -2,10 +2,9 @@ name: TechRadar AI Pipeline
 
 on:
   schedule:
-    - cron: '0 9 * * *'    # 09:00 UTC — GitHub sources
-    - cron: '0 13 * * *'   # 13:00 UTC — HuggingFace
-    - cron: '0 17 * * *'   # 17:00 UTC — HackerNews
-    - cron: '0 21 * * *'   # 21:00 UTC — ArXiv
+    - cron: '0 7 * * *'    # 10:00 GMT+3 — GitHub Trending
+    - cron: '0 11 * * *'   # 14:00 GMT+3 — HuggingFace
+    - cron: '0 15 * * *'   # 18:00 GMT+3 — HackerNews / ArXiv
   workflow_dispatch:
     inputs:
       source:
@@ -59,15 +58,13 @@ jobs:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
-          INSTAGRAM_ACCOUNT_ID: ${{ secrets.INSTAGRAM_ACCOUNT_ID }}
           ENABLE_TELEGRAM: ${{ github.event.inputs.enable_telegram || 'true' }}
           ENABLE_WEBSITE: 'true'
-          ENABLE_INSTAGRAM: ${{ vars.ENABLE_INSTAGRAM || 'false' }}
+          ENABLE_INSTAGRAM: 'false'
           ENABLE_REDDIT: 'false'
           ENABLE_TWITTER: 'false'
           ENABLE_LINKEDIN: 'false'
-          WEBSITE_BASE_URL: ${{ vars.WEBSITE_BASE_URL || 'https://nebula387.github.io/TechRadar' }}
+          WEBSITE_BASE_URL: 'https://nebula387.github.io/TechRadar'
           WEBSITE_OUTPUT_DIR: './website/public'
           MIN_SCORE: '85'
           MAX_POSTS_PER_DAY: '3'
@@ -113,7 +110,7 @@ jobs:
 
       - name: Rebuild website HTML from feed.json
         env:
-          WEBSITE_BASE_URL: ${{ vars.WEBSITE_BASE_URL || 'https://nebula387.github.io/TechRadar' }}
+          WEBSITE_BASE_URL: 'https://nebula387.github.io/TechRadar'
           WEBSITE_OUTPUT_DIR: './website/public'
         run: python -m app.rebuild_website
 
