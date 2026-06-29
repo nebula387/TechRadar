@@ -24,7 +24,7 @@ class Settings(BaseSettings):
 
     # LLM — free tier only
     groq_api_key: str = ""
-    groq_model: str = "llama-3.3-70b-versatile"
+    groq_model: str = "qwen/qwen3.6-27b"
     openrouter_api_key: str = ""
     openrouter_model: str = "google/gemma-2-9b-it:free"
     # NVIDIA NIM — fallback for Groq filtering (free credits on signup)
@@ -52,7 +52,7 @@ class Settings(BaseSettings):
 
     # Quality
     min_score: int = 85
-    max_posts_per_day: int = 3
+    max_posts_per_day: int = 1
 
     # Channels
     enable_telegram: bool = True

@@ -49,7 +49,7 @@
 [SQLite: дедупликация, история, дневной лимит]
 ```
 
-**Максимум 3 публикации в день.** Лучше молчать, чем публиковать шум.
+**Максимум 1 публикация в день** — только лучший пост по оценке LLM. Лучше молчать, чем публиковать шум.
 
 ---
 
@@ -236,7 +236,7 @@ TechRadar/
 Фильтрация (NVIDIA NIM primary → Groq fallback):
 
 - `meta/llama-3.3-70b-instruct` — основная (NVIDIA NIM, щедрые бесплатные кредиты)
-- `llama-3.3-70b-versatile` — резерв (Groq, строгие TPM-лимиты)
+- `qwen/qwen3.6-27b` — резерв (Groq, строгие TPM-лимиты)
 
 Генерация (OpenRouter primary → NVIDIA fallback):
 
@@ -256,11 +256,11 @@ TechRadar/
 | `NVIDIA_API_KEY` | NVIDIA NIM API key | — |
 | `NVIDIA_MODEL` | Модель NVIDIA | `meta/llama-3.3-70b-instruct` |
 | `GROQ_API_KEY` | Groq API key | — |
-| `GROQ_MODEL` | Модель Groq | `llama-3.3-70b-versatile` |
+| `GROQ_MODEL` | Модель Groq | `qwen/qwen3.6-27b` |
 | `OPENROUTER_API_KEY` | OpenRouter API key | — |
 | `OPENROUTER_MODEL` | Модель OpenRouter | `google/gemma-2-9b-it:free` |
 | `MIN_SCORE` | Минимальный скор | `85` |
-| `MAX_POSTS_PER_DAY` | Лимит публикаций/день | `3` |
+| `MAX_POSTS_PER_DAY` | Лимит публикаций/день | `1` |
 | `ENABLE_TELEGRAM` | Публиковать в Telegram | `true` |
 | `ENABLE_WEBSITE` | Публиковать на сайт | `true` |
 | `WEBSITE_BASE_URL` | URL сайта | `https://nebula387.github.io/TechRadar` |
@@ -281,7 +281,7 @@ TechRadar/
    python -m app.manage stats
    ```
 
-   Если сегодня уже 3 публикации — пайплайн пропускает запуск.
+   Если сегодня уже 1 публикация — пайплайн пропускает запуск.
 
 3. **Посмотреть логи GitHub Actions**  
    Actions → последний запуск → шаг "Run TechRadar pipeline".  

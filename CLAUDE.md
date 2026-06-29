@@ -45,7 +45,7 @@ Website: `https://nebula387.github.io/TechRadar`
 - `meta/llama-3.3-70b-instruct` (free credits on signup at build.nvidia.com)
 
 **Groq (fallback for filtering):**
-- `llama-3.3-70b-versatile` (free tier, strict TPM limits)
+- `qwen/qwen3.6-27b` (free tier, strict TPM limits; replaces deprecated llama-3.3-70b-versatile)
 
 **OpenRouter (primary for content generation):**
 - `google/gemma-2-9b-it:free`
@@ -325,7 +325,7 @@ WEBSITE_BASE_URL=https://nebula387.github.io/TechRadar
 - **feed.json is the source of truth** — it must contain all data needed to rebuild HTML
 - **On 4xx LLM errors:** fail immediately (don't retry — model won't reappear)
 - **On 429:** cap wait at 120s, then failover to backup provider
-- The system should publish **0–3 posts per day** — silence is better than noise
+- The system should publish **0–1 posts per day** — only the top-scored item wins; silence is better than noise
 
 ---
 
