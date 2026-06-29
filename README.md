@@ -8,6 +8,8 @@
 🔗 **Сайт:** <https://nebula387.github.io/TechRadar>  
 📱 **Telegram:** <https://t.me/ai_tech_radar>
 
+![TechRadar AI — Telegram channel preview](docs/TechRadar_screen.jpg)
+
 ---
 
 ## Платформы
