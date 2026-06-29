@@ -67,7 +67,7 @@ jobs:
           WEBSITE_BASE_URL: 'https://nebula387.github.io/TechRadar'
           WEBSITE_OUTPUT_DIR: './website/public'
           MIN_SCORE: '85'
-          MAX_POSTS_PER_DAY: '3'
+          MAX_POSTS_PER_DAY: '1'
         run: |
           SOURCE="${{ github.event.inputs.source || 'github_trending' }}"
           python -m app.main --source "$SOURCE"
