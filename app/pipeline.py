@@ -16,7 +16,7 @@ from app.config import get_settings
 logger = logging.getLogger(__name__)
 
 
-async def _publish_to_all(content, storage: Storage) -> list[str]:
+async def _publish_to_all(content, storage: Storage, skip_telegram: bool = False) -> list[str]:
     publishers = [
         TelegramPublisher(),
         InstagramPublisher(),
@@ -27,6 +27,9 @@ async def _publish_to_all(content, storage: Storage) -> list[str]:
 
     for pub in publishers:
         if not pub.is_enabled:
+            continue
+        if skip_telegram and pub.channel_name == "telegram":
+            logger.info("Telegram daily limit reached, skipping for this post")
             continue
         try:
             result = await pub.publish(content)
@@ -95,6 +98,7 @@ async def run_pipeline(collectors: list[BaseCollector]) -> None:
 
     # ── Generate + Publish (or save for approval) ────────────────────────────
     processed = 0
+    telegram_today = storage.get_today_telegram_count()
     images_dir = Path("./data/images")
     images_dir.mkdir(parents=True, exist_ok=True)
 
@@ -143,9 +147,12 @@ async def run_pipeline(collectors: list[BaseCollector]) -> None:
                 logger.info(f"Starting approval loop (timeout={timeout}s)...")
                 await poll_loop(timeout_seconds=timeout)
         else:
-            channels = await _publish_to_all(content, storage)
+            skip_tg = telegram_today >= s.max_telegram_posts_per_day
+            channels = await _publish_to_all(content, storage, skip_telegram=skip_tg)
             if channels:
                 processed += 1
+                if "telegram" in channels:
+                    telegram_today += 1
                 logger.info(f"✅ Published '{item.title[:60]}' → {channels}")
 
     mode = "pending approval" if s.enable_approval_mode else "published"

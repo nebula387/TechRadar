@@ -52,7 +52,8 @@ class Settings(BaseSettings):
 
     # Quality
     min_score: int = 85
-    max_posts_per_day: int = 1
+    max_posts_per_day: int = 3
+    max_telegram_posts_per_day: int = 1
 
     # Channels
     enable_telegram: bool = True

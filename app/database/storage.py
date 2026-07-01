@@ -53,6 +53,16 @@ class Storage:
                 )
             """)
 
+    def get_today_telegram_count(self) -> int:
+        today = date.today().isoformat()
+        with self._connect() as conn:
+            row = conn.execute(
+                "SELECT COUNT(*) as c FROM published_items "
+                "WHERE telegram_message_id IS NOT NULL AND published_at LIKE ?",
+                (f"{today}%",),
+            ).fetchone()
+            return row["c"] if row else 0
+
     def is_published(self, url: str) -> bool:
         with self._connect() as conn:
             row = conn.execute(
