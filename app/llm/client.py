@@ -11,11 +11,11 @@ OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 NVIDIA_URL = "https://integrate.api.nvidia.com/v1/chat/completions"
 
 
-async def _post_with_retry(url: str, headers: dict, payload: dict, max_retries: int = 4) -> dict:
+async def _post_with_retry(url: str, headers: dict, payload: dict, max_retries: int = 4, timeout: int = 90) -> dict:
     for attempt in range(max_retries):
         try:
             t0 = time.monotonic()
-            async with httpx.AsyncClient(timeout=90) as client:
+            async with httpx.AsyncClient(timeout=timeout) as client:
                 resp = await client.post(url, headers=headers, json=payload)
                 latency = time.monotonic() - t0
 
@@ -69,7 +69,7 @@ def _messages(prompt: str, system: str) -> list[dict]:
     return msgs
 
 
-async def nvidia_complete(prompt: str, system: str = "", max_tokens: int = 1024) -> str:
+async def nvidia_complete(prompt: str, system: str = "", max_tokens: int = 1024, max_retries: int = 4, timeout: int = 90) -> str:
     """NVIDIA NIM API — primary LLM provider for filtering."""
     s = get_settings()
     if not s.nvidia_api_key:
@@ -83,6 +83,8 @@ async def nvidia_complete(prompt: str, system: str = "", max_tokens: int = 1024)
             "temperature": 0.2,
             "max_tokens": max_tokens,
         },
+        max_retries=max_retries,
+        timeout=timeout,
     )
     return data["choices"][0]["message"]["content"]
 
@@ -92,7 +94,8 @@ async def groq_complete(prompt: str, system: str = "", max_tokens: int = 1024) -
     s = get_settings()
     if s.nvidia_api_key:
         try:
-            return await nvidia_complete(prompt, system=system, max_tokens=max_tokens)
+            # 1 attempt, 30s timeout — fail fast so Groq fallback kicks in quickly
+            return await nvidia_complete(prompt, system=system, max_tokens=max_tokens, max_retries=1, timeout=30)
         except RuntimeError as e:
             logger.warning(f"NVIDIA failed ({e}), falling back to Groq")
     if not s.groq_api_key:

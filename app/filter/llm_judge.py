@@ -61,6 +61,8 @@ def _format_items_block(items: list[RawItem]) -> str:
 
 def _extract_json_array(text: str) -> list[dict]:
     text = text.strip()
+    # Qwen3 thinking mode wraps output in <think>...</think> before the JSON
+    text = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()
     text = re.sub(r"^```(?:json)?\s*", "", text)
     text = re.sub(r"\s*```$", "", text)
     match = re.search(r"\[.*\]", text, re.DOTALL)
@@ -130,7 +132,7 @@ async def _judge_chunk(items: list[RawItem], offset: int = 0) -> list[ScoredItem
         categories=CATEGORIES,
     )
     try:
-        response = await groq_complete(prompt, system=BATCH_SYSTEM, max_tokens=2048)
+        response = await groq_complete(prompt, system=BATCH_SYSTEM, max_tokens=4096)
         results = _extract_json_array(response)
 
         approved = []
