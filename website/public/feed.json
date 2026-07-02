@@ -1,5 +1,21 @@
 [
   {
+    "title": "Page Agent Revolution",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260702-alibabapage-agent.html",
+    "source_url": "https://github.com/alibaba/page-agent",
+    "description": "Alibaba/page-agent - это инновационный JavaScript-агент, позволяющий контролировать веб-интерфейсы с помощью естественного языка. Это важно прямо сейчас, потому что он решает сложные проблемы взаимодействия с веб-интерфе",
+    "body_en": "Alibaba's page-agent is a JavaScript in-page GUI agent that enables control of web interfaces using natural language, marking a significant breakthrough in GUI automation. This novel approach matters now because it solves complex web interaction pain points without requiring heavy infrastructure, making it an attractive solution for ML engineers and developers. By leveraging in-browser JavaScript injection, page-agent streamlines interactions with web applications, reducing the need for manual scripting and cumbersome automation frameworks.\n\nAt its core, page-agent is built around a unique in-browser JS injection approach that allows for seamless interaction with web interfaces. This enables the agent to navigate, fill out forms, and perform actions on web pages with ease, all through natural language inputs. The agent's ability to understand and execute complex commands makes it an ideal solution for automating tasks that would otherwise require extensive scripting or manual intervention.\n\nWhat sets page-agent apart is its ability to learn from interactions and adapt to new scenarios, making it increasingly effective over time. This is achieved through a combination of machine learning algorithms and a robust feedback mechanism, allowing the agent to refine its understanding of web interfaces and improve its automation capabilities. Furthermore, page-agent's in-browser approach eliminates the need for external infrastructure, making it a lightweight and scalable solution for GUI automation.\n\nML engineers and developers working on web application automation, testing, and scraping should take notice of page-agent. Practical use cases include automating data entry tasks, performing end-to-end testing, and scraping dynamic web content. With page-agent, these tasks can be accomplished with greater ease and efficiency, freeing up resources for more strategic and high-value work. As the web continues to evolve, solutions like page-agent will play a crucial role in simplifying complex interactions and unlocking new possibilities for automation and innovation.",
+    "category": "AI Agent",
+    "score": 86,
+    "emoji": "🤖",
+    "accent_color": "#6366f1",
+    "source": "github",
+    "date": "2026-07-02",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260702-alibabapage-agent.png",
+    "tags": [],
+    "slug": "20260702-alibabapage-agent"
+  },
+  {
     "title": "Agent Skills Standard",
     "url": "https://nebula387.github.io/TechRadar/posts/20260702-agentskillsagentskills.html",
     "source_url": "https://github.com/agentskills/agentskills",
