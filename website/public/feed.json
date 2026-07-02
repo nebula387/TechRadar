@@ -1,5 +1,37 @@
 [
   {
+    "title": "Agent Skills Standard",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260702-agentskillsagentskills.html",
+    "source_url": "https://github.com/agentskills/agentskills",
+    "description": "Это открытый проект, который устанавливает критический стандарт интероперабельности для возможностей ИИ-агентов, снижая фрагментацию в быстро развивающемся экосистеме агентов. Это важно прямо сейчас, потому что позволяет",
+    "body_en": "The rapidly evolving AI agent ecosystem is on the cusp of a major breakthrough, thanks to the introduction of Agent Skills, a critical interoperability standard for AI agent capabilities. As the demand for AI-powered agents continues to grow, the need for a unified framework that enables seamless interaction and cooperation between agents from different vendors and domains has become increasingly pressing. Agent Skills addresses this challenge by providing a common language and set of specifications that define the capabilities and behaviors of AI agents, thereby reducing fragmentation and facilitating the creation of more sophisticated and effective AI-powered systems.\n\nAt its core, Agent Skills is a set of APIs and data models that enable agents to advertise their capabilities, discover and invoke the capabilities of other agents, and engage in complex interactions and workflows. This is achieved through a modular and extensible architecture that allows developers to define and register custom skills, which can then be easily integrated into their agents. One of the key features of Agent Skills is its support for skill composition, which enables agents to combine multiple skills to create more complex and powerful capabilities.\n\nAnother unique aspect of Agent Skills is its emphasis on semantic interoperability, which ensures that agents can understand and interpret the meaning and context of the skills and data they exchange. This is achieved through the use of standardized ontologies and vocabularies that provide a common understanding of the skills and domains being represented. By providing a standardized framework for agent capabilities, Agent Skills enables ML engineers to focus on developing more advanced and specialized AI agents, rather than worrying about the underlying infrastructure and interoperability issues.\n\nML engineers and developers working on AI-powered systems should care about Agent Skills, as it provides a standardized framework for building and integrating AI agents. Practical use cases include developing multi-agent systems for areas like customer service, healthcare, and smart cities, where agents need to interact and cooperate to achieve complex goals. By adopting Agent Skills, developers can create more sophisticated and effective AI-powered systems that can seamlessly interact and cooperate with other agents and systems. As the AI agent ecosystem continues to evolve, Agent Skills is poised to play a critical role in shaping the future of AI-powered systems.",
+    "category": "Open Source",
+    "score": 86,
+    "emoji": "📜",
+    "accent_color": "#10b981",
+    "source": "github",
+    "date": "2026-07-02",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260702-agentskillsagentskills.png",
+    "tags": [],
+    "slug": "20260702-agentskillsagentskills"
+  },
+  {
+    "title": "Codex Integration",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260702-openaicodex-plugin-cc.html",
+    "source_url": "https://github.com/openai/codex-plugin-cc",
+    "description": "Представляем openai/codex-plugin-cc - инструмент, который позволяет использовать Codex для проверки кода или делегирования задач. Это важно прямо сейчас, потому что он решает проблему фрагментации и позволяет бесшовно ин",
+    "body_en": "The openai/codex-plugin-cc is a game-changer for senior developers, enabling seamless integration of large language models (LLMs) within command-line interface (CLI) workflows. This innovation matters now because it solves a major fragmentation pain point that has hindered advanced developers for years. By leveraging Codex from Claude Code, developers can review code, delegate tasks, and streamline their development processes like never before.\n\nAt its core, the codex-plugin-cc allows for cross-provider LLM integration, breaking down the silos that have traditionally separated different development environments. This means that developers can now access a wide range of LLMs, including those from OpenAI, directly within their CLI workflows. The plugin's architecture is designed to be highly extensible, making it easy to integrate with a variety of LLM providers and development tools.\n\nWhat makes the codex-plugin-cc unique is its ability to abstract away the complexities of LLM integration, providing a simple and intuitive interface for developers to interact with these powerful models. This is achieved through a set of carefully designed APIs and command-line tools that make it easy to integrate LLMs into existing development workflows. Additionally, the plugin's support for multiple LLM providers ensures that developers can choose the best model for their specific use case.\n\nSenior developers working on complex projects, particularly those involving AI and machine learning, should care about the codex-plugin-cc. Practical use cases include using Codex to review code for errors, generate boilerplate code, and even automate repetitive development tasks. For example, a developer working on a natural language processing project could use the plugin to integrate an LLM directly into their development workflow, streamlining the development process and improving overall productivity.\n\nIn conclusion, the openai/codex-plugin-cc is a powerful tool that has the potential to revolutionize the way senior developers work with LLMs. By providing seamless cross-provider LLM integration within CLI workflows, it solves a major pain point and enables developers to focus on what matters most – building innovative software solutions.",
+    "category": "Developer Tool",
+    "score": 88,
+    "emoji": "🔌",
+    "accent_color": "#6366f1",
+    "source": "github",
+    "date": "2026-07-02",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260702-openaicodex-plugin-cc.png",
+    "tags": [],
+    "slug": "20260702-openaicodex-plugin-cc"
+  },
+  {
     "title": "Maigret Unveiled",
     "url": "https://nebula387.github.io/TechRadar/posts/20260629-soxojmaigret.html",
     "source_url": "https://github.com/soxoj/maigret",
