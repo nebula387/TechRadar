@@ -1,5 +1,21 @@
 [
   {
+    "title": "Code Review Graph",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260724-tirth8205code-review-graph.html",
+    "source_url": "https://github.com/tirth8205/code-review-graph",
+    "description": "🧠 Умное Код-Обзор: прямо сейчас это важно, потому что инструменты ИИ для кодирования часто перегружены ненужной информацией, что замедляет процесс разработки. tirth8205/code-review-graph - это локально-ориентированный гр",
+    "body_en": "The tirth8205/code-review-graph project addresses a pressing issue in AI-powered code development: context bloat. As codebases grow, AI tools struggle to focus on relevant information, leading to decreased performance and accuracy. This local-first code intelligence graph solves this problem by building a persistent map of the codebase, allowing AI coding tools to prioritize what matters most.\n\nAt its core, the code-review-graph is designed to optimize AI context for Maximum Code Perception (MCP) and Command-Line Interface (CLI) workflows. By creating a local, graph-based representation of the codebase, it enables AI tools to efficiently identify and prioritize relevant code snippets, reducing the noise and improving overall performance. This approach has been benchmarked to deliver significant context reductions, making it an attractive solution for large-repo workflows and code review processes.\n\nWhat sets the code-review-graph apart is its local-first approach, which ensures that sensitive code information remains on the developer's machine, reducing the risk of data exposure. Additionally, its graph-based architecture allows for efficient querying and traversal of the codebase, making it an ideal solution for large, complex code repositories. The project's focus on MCP and CLI workflows also makes it a great fit for developers working on a wide range of projects, from mobile apps to enterprise software.\n\nSenior developers and ML engineers working on large-scale projects or complex codebases should take notice of the code-review-graph. Practical use cases include optimizing code review workflows, improving AI-powered code completion tools, and enhancing overall developer productivity. By integrating the code-review-graph into their development workflow, developers can streamline their code review process, reduce context switching, and focus on writing high-quality code.\n\nIn conclusion, the tirth8205/code-review-graph project offers a elegant solution to the problem of AI context bloat, providing a local-first, graph-based approach to code intelligence that prioritizes what matters most. As the development landscape continues to evolve, innovative solutions like the code-review-graph will play a crucial role in shaping the future of AI-powered code development.",
+    "category": "Developer Tool",
+    "score": 92,
+    "emoji": "🧠",
+    "accent_color": "#10b981",
+    "source": "github",
+    "date": "2026-07-24",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260724-tirth8205code-review-graph.png",
+    "tags": [],
+    "slug": "20260724-tirth8205code-review-graph"
+  },
+  {
     "title": "Fast MCP Integration",
     "url": "https://nebula387.github.io/TechRadar/posts/20260720-prefecthqfastmcp.html",
     "source_url": "https://github.com/PrefectHQ/fastmcp",
