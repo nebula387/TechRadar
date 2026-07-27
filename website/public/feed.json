@@ -1,5 +1,21 @@
 [
   {
+    "title": "Kronos AI Model",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260727-shiyu-coderkronos.html",
+    "source_url": "https://github.com/shiyu-coder/Kronos",
+    "description": "Это новый фундамент для языка финансовых рынков, который прямо сейчас может принести практическую пользу в работе с количественными и машинными моделями. Kronos предназначен специально для финансовых временных рядов, что",
+    "body_en": "Kronos is a novel foundation model specifically designed for the language of financial markets, offering immediate practical value for quant and ML workflows. As a cutting-edge AI model, Kronos has the potential to revolutionize the way financial institutions and organizations approach time-series analysis and forecasting. With its unique architecture, Kronos is poised to become a game-changer in the financial industry, providing unparalleled insights and predictions.\n\nAt its core, Kronos is a transformer-based model that leverages self-supervised learning to capture complex patterns and relationships in financial time-series data. What sets Kronos apart is its ability to learn from large amounts of unlabeled data, making it an ideal solution for organizations with vast amounts of historical market data. Additionally, Kronos's architecture is designed to handle multiple related tasks simultaneously, such as forecasting, anomaly detection, and risk analysis.\n\nKronos's key features include its ability to handle high-frequency data, its robustness to noise and missing values, and its capacity to generate human-interpretable explanations for its predictions. These features make Kronos an attractive solution for ML engineers and quants looking to improve their workflows and gain a competitive edge. Furthermore, Kronos's unique architecture allows it to be fine-tuned for specific tasks and datasets, making it a versatile tool for a wide range of applications.\n\nML engineers and quants working in financial institutions, hedge funds, and investment banks should take notice of Kronos. Practical use cases include predicting stock prices, detecting anomalies in trading data, and optimizing portfolio performance. With Kronos, organizations can automate complex tasks, reduce manual errors, and gain valuable insights into market trends and patterns.\n\nIn conclusion, Kronos is a groundbreaking AI model that has the potential to transform the financial industry. Its unique architecture, robust features, and practical applications make it an essential tool for ML engineers and quants looking to stay ahead of the curve. As the financial industry continues to evolve, Kronos is poised to play a significant role in shaping the future of financial time-series analysis and forecasting.",
+    "category": "AI Model",
+    "score": 88,
+    "emoji": "📈",
+    "accent_color": "#10b981",
+    "source": "github",
+    "date": "2026-07-27",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260727-shiyu-coderkronos.png",
+    "tags": [],
+    "slug": "20260727-shiyu-coderkronos"
+  },
+  {
     "title": "Code Review Graph",
     "url": "https://nebula387.github.io/TechRadar/posts/20260724-tirth8205code-review-graph.html",
     "source_url": "https://github.com/tirth8205/code-review-graph",
