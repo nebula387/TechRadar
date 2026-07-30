@@ -1,5 +1,21 @@
 [
   {
+    "title": "Openwork AI",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260730-different-aiopenwork.html",
+    "source_url": "https://github.com/different-ai/openwork",
+    "description": "Представляем different-ai/openwork - открытую альтернативу проприетарным инструментам ИИ для разработчиков, которая позволяет создавать производственные среды кодирования без ограничений. Это важно прямо сейчас, потому ч",
+    "body_en": "The emergence of open-source alternatives to proprietary AI coding tools has been a significant development in the software development landscape. Openwork, powered by opencode, is one such alternative that has been gaining attention among senior developers. As a production-ready, open-source agentic coding environment, Openwork effectively bypasses the limitations of proprietary AI coding tools, offering a more flexible and customizable solution for coding tasks.\n\nAt its core, Openwork is designed to provide a collaborative coding experience, allowing developers to work together with AI agents to write, review, and refine code. What sets Openwork apart is its open-source nature, which enables developers to modify and extend the platform to suit their specific needs. This level of customization is not possible with proprietary AI coding tools, which often come with rigid limitations and constraints.\n\nAnother key feature of Openwork is its support for a wide range of programming languages and frameworks. This makes it an ideal choice for development teams working on diverse projects, as they can leverage the power of AI-assisted coding across multiple languages and frameworks. Additionally, Openwork's open-source community-driven approach ensures that the platform is constantly evolving, with new features and improvements being added regularly.\n\nSenior developers and development teams should care about Openwork because it offers a flexible and customizable solution for coding tasks. Practical use cases include using Openwork to automate repetitive coding tasks, improve code quality and consistency, and enhance collaboration among team members. For instance, a development team working on a complex project can use Openwork to automate tasks such as code review and testing, freeing up more time for high-level tasks that require human expertise.\n\nIn conclusion, Openwork is a game-changer for senior developers and development teams looking for a more flexible and customizable AI coding solution. With its open-source nature, support for multiple languages and frameworks, and community-driven approach, Openwork is poised to revolutionize the way we approach coding tasks. As the platform continues to evolve, it will be exciting to see the innovative use cases and applications that emerge from the Openwork community.",
+    "category": "Developer Tool",
+    "score": 88,
+    "emoji": "🤖",
+    "accent_color": "#10b981",
+    "source": "github",
+    "date": "2026-07-30",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260730-different-aiopenwork.png",
+    "tags": [],
+    "slug": "20260730-different-aiopenwork"
+  },
+  {
     "title": "Kronos AI Model",
     "url": "https://nebula387.github.io/TechRadar/posts/20260727-shiyu-coderkronos.html",
     "source_url": "https://github.com/shiyu-coder/Kronos",
