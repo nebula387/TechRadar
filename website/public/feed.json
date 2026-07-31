@@ -1,5 +1,21 @@
 [
   {
+    "title": "Code Review Evolved",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260731-alibabaopen-code-review.html",
+    "source_url": "https://github.com/alibaba/open-code-review",
+    "description": "🔍 Инструмент для обзора кода от Alibaba: alibaba/open-code-review - это открытый и бесплатный инструмент для обзора кода, который уже прошёл испытания в масштабе Alibaba. Он сочетает в себе детерминированные конвейеры и ",
+    "body_en": "Alibaba's open-code-review is a game-changer for senior developers, offering a hybrid architecture that combines deterministic pipelines with a Large Language Model (LLM) Agent. This innovative approach addresses the long-standing issue of inefficient code reviews, which can bottleneck enterprise workflows. By leveraging the strengths of both deterministic and LLM-based systems, open-code-review provides precise, scalable, and reliable code analysis.\n\nAt its core, open-code-review boasts a built-in, fine-tuned ruleset that detects common issues such as Null Pointer Exceptions (NPE), thread-safety problems, XSS, and SQL injection vulnerabilities. This ruleset is complemented by the LLM Agent, which enables precise line-level comments and suggestions for improvement. The tool's compatibility with OpenAI and Anthropic models further enhances its capabilities, allowing developers to tap into the power of cutting-edge language models.\n\nWhat sets open-code-review apart is its ability to deliver deterministic results while still leveraging the flexibility and nuance of LLMs. This hybrid approach ensures that code reviews are both accurate and efficient, reducing the time and effort required to identify and fix issues. With open-code-review, developers can focus on writing high-quality code, rather than spending hours reviewing and debugging.\n\nSenior developers and enterprise teams should take notice of open-code-review, as it has the potential to significantly streamline their workflows. Practical use cases include integrating open-code-review into existing CI/CD pipelines, using it to review large-scale codebases, and leveraging its LLM capabilities to identify complex issues that may have gone undetected. By adopting open-code-review, teams can improve code quality, reduce bugs, and increase overall development efficiency.\n\nIn conclusion, open-code-review represents a significant step forward in code review technology, offering a powerful hybrid approach that combines the best of deterministic and LLM-based systems. As the software development landscape continues to evolve, tools like open-code-review will play an increasingly important role in helping teams deliver high-quality, reliable, and efficient code.",
+    "category": "Developer Tool",
+    "score": 88,
+    "emoji": "🔍",
+    "accent_color": "#10b981",
+    "source": "github",
+    "date": "2026-07-31",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260731-alibabaopen-code-review.png",
+    "tags": [],
+    "slug": "20260731-alibabaopen-code-review"
+  },
+  {
     "title": "Openwork AI",
     "url": "https://nebula387.github.io/TechRadar/posts/20260730-different-aiopenwork.html",
     "source_url": "https://github.com/different-ai/openwork",
