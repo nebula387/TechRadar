@@ -1,5 +1,21 @@
 [
   {
+    "title": "Book-to-Skill Converter",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260801-virgiliojr94book-to-skill.html",
+    "source_url": "https://github.com/virgiliojr94/book-to-skill",
+    "description": "Мы публикуем об этом прямо сейчас, потому что это решает реальную проблему интеграции знаний в процессе разработки. virgiliojr94/book-to-skill - это инструмент, который преобразует любой технический документ PDF в навык ",
+    "body_en": "The ability to seamlessly integrate technical knowledge from books into AI coding agents has long been a pain point for ML engineers. The virgiliojr94/book-to-skill project addresses this issue by converting any technical book PDF into a Claude Code skill, making it easily accessible and usable while working. This innovation elegantly bridges the gap between static technical documentation and AI-powered coding assistance, streamlining the development process.\n\nAt its core, book-to-skill leverages advanced natural language processing (NLP) and machine learning algorithms to parse and understand the content of technical books. This allows it to extract relevant information, identify key concepts, and organize them into a structured format that can be easily integrated into Claude Code skills. The result is a highly accessible and interactive knowledge base that developers can draw upon to improve their coding skills and solve complex problems.\n\nWhat makes book-to-skill unique is its ability to preserve the context and nuance of the original book content. Unlike traditional documentation, which can often be dry and lacking in depth, book-to-skill retains the author's intent and expertise, providing developers with a more comprehensive understanding of the subject matter. Furthermore, the converted skills can be easily updated and expanded upon, ensuring that the knowledge remains current and relevant.\n\nML engineers and developers who regularly consult technical books and documentation should care about book-to-skill. Practical use cases include using the converted skills to quickly look up specific concepts or techniques, or to gain a deeper understanding of a particular topic. For instance, a developer working on a project that involves natural language processing could use book-to-skill to access relevant chapters from a technical book on NLP, and then apply that knowledge directly to their code.\n\nIn conclusion, the virgiliojr94/book-to-skill project represents a significant step forward in integrating technical knowledge into AI coding agents. By providing a seamless and intuitive way to access and apply knowledge from technical books, book-to-skill has the potential to revolutionize the way developers work and learn.",
+    "category": "AI Agent",
+    "score": 87,
+    "emoji": "📚",
+    "accent_color": "#10b981",
+    "source": "github",
+    "date": "2026-08-01",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260801-virgiliojr94book-to-skill.png",
+    "tags": [],
+    "slug": "20260801-virgiliojr94book-to-skill"
+  },
+  {
     "title": "Code Review Evolved",
     "url": "https://nebula387.github.io/TechRadar/posts/20260731-alibabaopen-code-review.html",
     "source_url": "https://github.com/alibaba/open-code-review",
