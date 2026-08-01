@@ -1,5 +1,21 @@
 [
   {
+    "title": "Voice Pro Unleashed",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260801-abus-aikoreavoice-pro.html",
+    "source_url": "https://github.com/abus-aikorea/voice-pro",
+    "description": "🗣️ Голосовой ИИ для всех: abus-aikorea/voice-pro - это невероятный инструмент, который объединяет возможности текста в речь (TTS) и клонирования голоса, позволяя создателям и разработчикам работать с Edge-TTS, kokoro и д",
+    "body_en": "Abus-aikorea's Voice Pro is a groundbreaking Gradio WebUI designed for creators and developers, offering a unique blend of text-to-speech (TTS) and zero-shot voice cloning capabilities. This innovative tool has garnered significant community traction, and its relevance cannot be overstated, especially in today's fast-paced AI landscape. By providing a comprehensive suite of audio processing features, Voice Pro empowers users to push the boundaries of voice synthesis and manipulation.\n\nAt its core, Voice Pro boasts an impressive array of TTS engines, including Edge-TTS and kokoro, which enable high-quality voice synthesis. Furthermore, the platform's zero-shot voice cloning capabilities, powered by E2 & F5-TTS and CosyVoice, allow users to replicate voices with uncanny accuracy. These features are complemented by Whisper audio processing, which enhances the overall audio quality, and Demucs vocal isolation, enabling precise vocal extraction from complex audio signals.\n\nWhat sets Voice Pro apart is its seamless integration of these cutting-edge technologies with practical tools like YouTube download and multilingual translation. This synergy creates a powerful workflow that streamlines content creation, localization, and audio post-production. Whether you're a developer building voice-enabled applications or a creator producing multimedia content, Voice Pro's versatility and customizability make it an indispensable asset.\n\nML engineers, content creators, and developers should take notice of Voice Pro's potential to revolutionize voice synthesis and audio processing. Practical use cases include generating high-quality voiceovers for videos, creating personalized voice assistants, or even developing novel audio-based applications. With its robust feature set and active community support, Voice Pro is poised to become a go-to platform for AI-driven audio innovation.\n\nIn conclusion, abus-aikorea's Voice Pro represents a significant leap forward in AI-powered voice synthesis and audio processing. As the demand for sophisticated voice technologies continues to grow, Voice Pro is well-positioned to play a pivotal role in shaping the future of audio content creation and manipulation.",
+    "category": "AI Model",
+    "score": 92,
+    "emoji": "🗣️",
+    "accent_color": "#34c759",
+    "source": "github",
+    "date": "2026-08-01",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260801-abus-aikoreavoice-pro.png",
+    "tags": [],
+    "slug": "20260801-abus-aikoreavoice-pro"
+  },
+  {
     "title": "AI-Powered Reverse Engineering",
     "url": "https://nebula387.github.io/TechRadar/posts/20260801-zhaoxuya520reverse-skill.html",
     "source_url": "https://github.com/zhaoxuya520/reverse-skill",
