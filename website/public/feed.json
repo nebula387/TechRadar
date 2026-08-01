@@ -1,5 +1,21 @@
 [
   {
+    "title": "AI-Powered Reverse Engineering",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260801-zhaoxuya520reverse-skill.html",
+    "source_url": "https://github.com/zhaoxuya520/reverse-skill",
+    "description": "zhaoxuya520/reverse-skill - это революционный фреймворк, который автоматизирует и развивает инструментальные цепочки для обратного инжиниринга, решая сложные проблемы в рабочих процессах. Это важно прямо сейчас, потому ч",
+    "body_en": "Reverse engineering and authorized penetration testing have long been manual, time-consuming processes, but a novel AI-driven framework is changing the game. The zhaoxuya520/reverse-skill project introduces an innovative approach to automating and self-evolving reverse engineering toolchains, addressing complex workflow bottlenecks that have plagued the industry for years. By leveraging AI-powered routing, on-demand toolchain bootstrapping, and a self-evolving knowledge base, this framework streamlines the reverse engineering process, making it more efficient and effective.\n\nAt its core, the zhaoxuya520/reverse-skill project boasts an AI-powered routing system that automatically orchestrates the reverse engineering workflow. This is complemented by an on-demand toolchain bootstrapping capability, which ensures that the necessary tools are available and configured as needed. The framework also features a self-evolving knowledge base, which continuously updates and refines its understanding of the reverse engineering process, allowing it to adapt to new challenges and improve over time.\n\nThe project's support for popular AI coding clients, including Claude Code, Kiro, Cursor, and Cline, further enhances its utility. By integrating with these tools, the zhaoxuya520/reverse-skill framework enables developers to leverage the power of AI-driven reverse engineering within their existing workflows. This makes it an attractive solution for senior developers and security researchers seeking to improve the efficiency and effectiveness of their reverse engineering and penetration testing efforts.\n\nThe zhaoxuya520/reverse-skill project is particularly relevant for senior developers and security researchers working in fields such as cybersecurity, software development, and artificial intelligence. Practical use cases include automating reverse engineering workflows, enhancing penetration testing capabilities, and improving the overall efficiency of security research efforts. As the project continues to evolve, it is likely to have a significant impact on the way reverse engineering and penetration testing are performed, making it an exciting development for the industry.",
+    "category": "AI Agent",
+    "score": 87,
+    "emoji": "🛡️",
+    "accent_color": "#10b981",
+    "source": "github",
+    "date": "2026-08-01",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260801-zhaoxuya520reverse-skill.png",
+    "tags": [],
+    "slug": "20260801-zhaoxuya520reverse-skill"
+  },
+  {
     "title": "Book-to-Skill Converter",
     "url": "https://nebula387.github.io/TechRadar/posts/20260801-virgiliojr94book-to-skill.html",
     "source_url": "https://github.com/virgiliojr94/book-to-skill",
