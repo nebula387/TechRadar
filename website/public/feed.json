@@ -1,5 +1,21 @@
 [
   {
+    "title": "TencentDB Agent Memory",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260802-tencentcloudtencentdb-agent-memory.html",
+    "source_url": "https://github.com/TencentCloud/TencentDB-Agent-Memory",
+    "description": "Это инновационный инструмент от TencentCloud, который позволяет создавать общий хаб памяти для агентов ИИ, что решает проблемы долгосрочного контекста и сохранения навыков в разработке. Благодаря этому инструменту, разра",
+    "body_en": "TencentDB Agent Memory is a game-changer for AI agent development, providing a structured and governed memory hub that solves long-term context and skill retention pain points. As AI agents become increasingly prevalent in various applications, the need for efficient memory management has never been more pressing. With TencentDB Agent Memory, developers can now turn conversations, documents, and code into reusable memory assets, streamlining the development process and improving agent performance.\n\nAt its core, TencentDB Agent Memory offers four reusable memory assets: Chat Memory, Skill, LLM-Wiki, and Code-Graph. These assets are designed to be shared and equipped across agents and frameworks, enabling seamless knowledge transfer and reducing the risk of context loss. The platform's governance features ensure that memory assets are properly managed, updated, and secured, providing a single source of truth for AI agent development.\n\nWhat sets TencentDB Agent Memory apart is its ability to integrate with various AI frameworks and agents, making it a versatile solution for developers. The platform's scalability and flexibility allow it to adapt to diverse development environments, from chatbots to more complex AI systems. Furthermore, TencentDB Agent Memory's focus on structured memory assets enables developers to reuse and refine knowledge, reducing development time and improving overall efficiency.\n\nML engineers and AI developers should take notice of TencentDB Agent Memory, as it has the potential to significantly improve the development and deployment of AI agents. Practical use cases include enhancing customer service chatbots, building more accurate language models, and developing more efficient virtual assistants. By leveraging TencentDB Agent Memory, developers can create more intelligent, responsive, and effective AI agents that provide better user experiences.\n\nIn conclusion, TencentDB Agent Memory is a powerful tool for AI agent development, offering a unique solution to the long-standing problem of context and skill retention. As the AI landscape continues to evolve, the importance of efficient memory management will only continue to grow, making TencentDB Agent Memory an essential component in the development of next-generation AI agents.",
+    "category": "AI Agent",
+    "score": 86,
+    "emoji": "🧠",
+    "accent_color": "#6366f1",
+    "source": "github",
+    "date": "2026-08-02",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260802-tencentcloudtencentdb-agent-memory.png",
+    "tags": [],
+    "slug": "20260802-tencentcloudtencentdb-agent-memory"
+  },
+  {
     "title": "Voice Pro Unleashed",
     "url": "https://nebula387.github.io/TechRadar/posts/20260801-abus-aikoreavoice-pro.html",
     "source_url": "https://github.com/abus-aikorea/voice-pro",
