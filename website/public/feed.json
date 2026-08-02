@@ -1,5 +1,37 @@
 [
   {
+    "title": "AISuite Unifies AI Providers",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260802-andrewyngaisuite.html",
+    "source_url": "https://github.com/andrewyng/aisuite",
+    "description": "🤖 Упрощаем работу с ИИ: ищете способ упростить работу с инструментами генеративного ИИ? Тогда вам нужно знать об aisuite - простом и едином интерфейсе для взаимодействия с несколькими провайдерами генеративного ИИ. Это в",
+    "body_en": "As machine learning engineers, we're no strangers to the complexities of integrating multiple Generative AI providers into our projects. The lack of a unified interface has long been a pain point, forcing us to juggle disparate APIs and interfaces. That's where AISuite comes in – an open-source project that provides a simple, unified interface to multiple Generative AI providers. By streamlining access to these providers, AISuite saves us time and effort, allowing us to focus on what matters most: building innovative AI-powered applications.\n\nAt its core, AISuite offers a standardized API that abstracts away the underlying complexities of each provider's interface. This means we can easily switch between providers or use multiple providers in tandem, without having to rewrite our code. AISuite currently supports several major Generative AI providers, including those specializing in text, image, and audio generation. By providing a unified interface, AISuite enables us to compare and contrast the strengths and weaknesses of each provider, making it easier to choose the best fit for our specific use case.\n\nWhat sets AISuite apart is its extensibility and customizability. The project is designed to be highly modular, allowing us to easily add support for new providers or customize the existing interface to suit our specific needs. This flexibility makes AISuite an attractive choice for ML engineers working on a wide range of projects, from chatbots and content generation to data augmentation and more. Whether we're building a proof-of-concept or a production-ready application, AISuite provides a reliable and efficient way to tap into the power of Generative AI.\n\nML engineers and developers working with AI-powered applications should take note of AISuite. Its unified interface and extensibility make it an ideal choice for projects that require flexibility and scalability. Practical use cases include building AI-powered content generation platforms, automating data augmentation tasks, or even creating custom chatbots. As the Generative AI landscape continues to evolve, AISuite is poised to play a key role in simplifying our workflow and unlocking new possibilities.",
+    "category": "Developer Tool",
+    "score": 88,
+    "emoji": "🤖",
+    "accent_color": "#3498db",
+    "source": "github",
+    "date": "2026-08-02",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260802-andrewyngaisuite.png",
+    "tags": [],
+    "slug": "20260802-andrewyngaisuite"
+  },
+  {
+    "title": "DeepSeek 4 Flash",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260802-antirezds4.html",
+    "source_url": "https://github.com/antirez/ds4",
+    "description": "🔥 Новый Инструмент для Разработчиков: antirez/ds4 - это локальный движок вывода, который позволяет разрабатывать и тестировать модели ИИ на локальных машинах с поддержкой Metal, CUDA и ROCm. Это важно прямо сейчас, потом",
+    "body_en": "DeepSeek 4 (ds4) is a local inference engine that has gained significant attention in the machine learning community. As a flash, high-performance inference engine, it provides support for multiple frameworks, including Metal, CUDA, and ROCm, making it an attractive solution for ML engineers. The ability to perform local inference is crucial in applications where low latency, high throughput, and minimal dependence on cloud connectivity are essential.\n\nOne of the key features that sets ds4 apart is its ability to optimize models for various hardware platforms. This allows developers to deploy their models on a range of devices, from high-end GPUs to low-power edge devices, without sacrificing performance. Additionally, ds4's support for multiple frameworks enables developers to work with their preferred framework, whether it's TensorFlow, PyTorch, or another popular choice.\n\nThe ds4 engine is also highly customizable, allowing developers to fine-tune their models for specific use cases. This is particularly useful in applications where the model needs to be optimized for a specific hardware configuration or where the model's performance needs to be balanced with other factors, such as power consumption. Furthermore, ds4's local inference capability ensures that sensitive data remains on-device, reducing the risk of data breaches and ensuring compliance with data protection regulations.\n\nML engineers working on applications that require low-latency, high-throughput inference, such as real-time object detection, speech recognition, or natural language processing, should take notice of ds4. Practical use cases include deploying models on edge devices, such as smart home devices, autonomous vehicles, or industrial control systems, where cloud connectivity is limited or unreliable. By leveraging ds4's local inference capabilities, developers can create more responsive, reliable, and secure applications.\n\nIn conclusion, DeepSeek 4 Flash is a powerful tool for ML engineers, offering a flexible, high-performance local inference engine that supports multiple frameworks and hardware platforms. As the demand for edge AI applications continues to grow, ds4 is poised to play a significant role in enabling the development of more efficient, secure, and responsive AI-powered systems.",
+    "category": "Developer Tool",
+    "score": 90,
+    "emoji": "🔥",
+    "accent_color": "#8b0d0d",
+    "source": "github",
+    "date": "2026-08-02",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260802-antirezds4.png",
+    "tags": [],
+    "slug": "20260802-antirezds4"
+  },
+  {
     "title": "TencentDB Agent Memory",
     "url": "https://nebula387.github.io/TechRadar/posts/20260802-tencentcloudtencentdb-agent-memory.html",
     "source_url": "https://github.com/TencentCloud/TencentDB-Agent-Memory",
