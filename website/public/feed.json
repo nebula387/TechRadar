@@ -1,5 +1,37 @@
 [
   {
+    "title": "ADHD-Friendly AI Output",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260803-ayghrii-have-adhd.html",
+    "source_url": "https://github.com/ayghri/i-have-adhd",
+    "description": "Мы все сталкивались с проблемой, когда агенты ИИ заваливают нас информацией, делая трудным найти нужное. ayghri/i-have-adhd - это инструмент, который решает эту проблему, делая вывод ИИ более понятным и удобным для разра",
+    "body_en": "The ayghri/i-have-adhd skill is a game-changer for developers who rely on coding agents to provide solutions. It directly addresses the issue of verbose AI output, which can be overwhelming and hinder productivity. By incorporating this skill, developers can streamline their workflow and focus on writing high-quality code. The ayghri/i-have-adhd skill matters now because it solves a common pain point in software development, making it an essential tool for senior developers.\n\nThe ayghri/i-have-adhd skill is unique in its ability to filter out unnecessary information and provide concise, relevant answers. This is achieved through a combination of natural language processing and machine learning algorithms that identify the most critical information and present it in a clear, easy-to-read format. By doing so, it saves developers time and reduces the cognitive load associated with sifting through lengthy, irrelevant responses.\n\nOne of the key features of the ayghri/i-have-adhd skill is its ability to adapt to individual developers' needs. It can be fine-tuned to accommodate different coding styles, preferences, and requirements, making it an invaluable asset for developers with ADHD or those who simply prefer a more streamlined workflow. Additionally, the skill is highly customizable, allowing developers to specify the level of detail and the format of the output, further enhancing its usefulness.\n\nSenior developers, particularly those who work with coding agents regularly, should care about the ayghri/i-have-adhd skill. It can be used in a variety of practical scenarios, such as debugging, code review, and knowledge sharing. For instance, when debugging a complex issue, the skill can help identify the root cause quickly, saving time and effort. In code review, it can assist in providing concise, actionable feedback, improving the overall quality of the codebase.\n\nIn conclusion, the ayghri/i-have-adhd skill is a valuable addition to any developer's toolkit. Its ability to provide concise, relevant output makes it an essential asset for senior developers who want to work more efficiently and effectively. By leveraging this skill, developers can overcome the challenges associated with verbose AI output and focus on what matters most – writing high-quality code.",
+    "category": "Developer Tool",
+    "score": 87,
+    "emoji": "🧠",
+    "accent_color": "#6366f1",
+    "source": "github",
+    "date": "2026-08-03",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260803-ayghrii-have-adhd.png",
+    "tags": [],
+    "slug": "20260803-ayghrii-have-adhd"
+  },
+  {
+    "title": "JCode Optimizes LLM Memory",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260803-1jehuangjcode.html",
+    "source_url": "https://github.com/1jehuang/jcode",
+    "description": "1jehuang/jcode - это самый эффективный харнесс, который позволяет существенно снизить потребление оперативной памяти при оценке и выводе больших языковых моделей. Это важно прямо сейчас, потому что позволяет разработчика",
+    "body_en": "The increasing complexity of large language models (LLMs) has led to a significant surge in memory requirements, causing bottlenecks in production environments. This is where 1jehuang/jcode comes into play, offering a highly efficient harness that delivers exceptional memory efficiency for LLM evaluation and inference. By addressing this critical production bottleneck, jcode enables machine learning engineers to deploy and run their models more efficiently, making it a crucial tool in the development of AI applications.\n\nAt its core, jcode is designed to minimize memory allocation and deallocation overhead, reducing the overall memory footprint of LLMs. This is achieved through a combination of advanced techniques, including memory pooling, cache-friendly data structures, and optimized memory access patterns. By leveraging these techniques, jcode is able to significantly reduce the memory requirements of LLMs, making it possible to run larger models on smaller hardware.\n\nOne of the key features that sets jcode apart from other memory optimization tools is its ability to dynamically adjust memory allocation based on the specific requirements of the model. This allows for more efficient use of memory, as well as improved performance and reduced latency. Additionally, jcode provides detailed memory usage statistics and profiling tools, enabling developers to identify and optimize memory-intensive components of their models.\n\nML engineers working on LLM-based projects should care about jcode, as it can help them overcome the memory constraints that often limit the deployment of these models. Practical use cases for jcode include optimizing language translation models, question-answering systems, and text generation models for production environments. By leveraging jcode, developers can ensure that their models run efficiently and effectively, even on resource-constrained hardware.\n\nIn conclusion, jcode is a powerful tool for optimizing the memory efficiency of LLMs, and its ability to deliver exceptional performance while minimizing memory usage makes it an essential component in the development of AI applications. As the complexity of LLMs continues to grow, tools like jcode will play an increasingly important role in enabling the efficient deployment and operation of these models.",
+    "category": "Developer Tool",
+    "score": 89,
+    "emoji": "⚡",
+    "accent_color": "#10b981",
+    "source": "github",
+    "date": "2026-08-03",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260803-1jehuangjcode.png",
+    "tags": [],
+    "slug": "20260803-1jehuangjcode"
+  },
+  {
     "title": "AISuite Unifies AI Providers",
     "url": "https://nebula387.github.io/TechRadar/posts/20260802-andrewyngaisuite.html",
     "source_url": "https://github.com/andrewyng/aisuite",
