@@ -1,5 +1,21 @@
 [
   {
+    "title": "TRELLIS.2",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260803-microsofttrellis2.html",
+    "source_url": "https://github.com/microsoft/TRELLIS.2",
+    "description": "TRELLIS.2 - это инновационная модель ИИ, которая позволяет генерировать 3D-объекты с беспрецедентной эффективностью и точностью. Это важно прямо сейчас, потому что TRELLIS.2 открывает новые возможности для разработчиков ",
+    "body_en": "Microsoft's TRELLIS.2 is a groundbreaking AI model that introduces a novel structured latent representation, revolutionizing 3D generation pipelines. This innovation significantly improves efficiency and fidelity, making it a crucial development for ML engineers working on 3D modeling, computer vision, and robotics projects. As the demand for high-quality 3D content continues to rise, TRELLIS.2's ability to generate detailed and realistic 3D models while reducing computational costs is a game-changer.\n\nAt its core, TRELLIS.2's structured latent representation enables the model to capture complex 3D structures and relationships more effectively. This is achieved through a hierarchical and modular architecture, allowing the model to learn and represent 3D objects at multiple scales and levels of abstraction. The result is a more compact and native representation of 3D data, which in turn enables faster processing, reduced memory usage, and improved overall performance.\n\nWhat sets TRELLIS.2 apart is its ability to balance efficiency and fidelity. Traditional 3D generation methods often sacrifice one for the other, resulting in either fast but low-quality generation or slow but high-quality generation. TRELLIS.2, on the other hand, achieves a sweet spot where both efficiency and fidelity are optimized. This is particularly important for applications where 3D models need to be generated in real-time or on devices with limited computational resources.\n\nML engineers working on 3D-related projects, such as autonomous vehicles, virtual reality, or video games, should take notice of TRELLIS.2. Its potential applications are vast, ranging from rapid prototyping and design exploration to data augmentation and simulation. By leveraging TRELLIS.2, developers can create more realistic and detailed 3D environments, characters, and objects, while also improving the overall performance and efficiency of their applications.\n\nIn conclusion, TRELLIS.2 represents a significant leap forward in 3D generation capabilities, offering a unique combination of efficiency, fidelity, and compactness. As the field of 3D generation continues to evolve, TRELLIS.2 is poised to play a major role in shaping the future of AI-powered 3D modeling and simulation.",
+    "category": "AI Model",
+    "score": 87,
+    "emoji": "🧊",
+    "accent_color": "#6366f1",
+    "source": "github",
+    "date": "2026-08-03",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260803-microsofttrellis2.png",
+    "tags": [],
+    "slug": "20260803-microsofttrellis2"
+  },
+  {
     "title": "ADHD-Friendly AI Output",
     "url": "https://nebula387.github.io/TechRadar/posts/20260803-ayghrii-have-adhd.html",
     "source_url": "https://github.com/ayghri/i-have-adhd",
