@@ -1,5 +1,21 @@
 [
   {
+    "title": "PrimeAgent Advances",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260808-primeintellect-aiprime-agent.html",
+    "source_url": "https://github.com/PrimeIntellect-ai/prime-agent",
+    "description": "🧠 Прорыв в автономных задачах: PrimeIntellect-ai/prime-agent - это революционный ИИ-агент, который может улучшать свои навыки самостоятельно, что делает его идеальным для выполнения долгосрочных автономных задач и оптими",
+    "body_en": "PrimeIntellect-ai's PrimeAgent is a self-improving RLM agent designed to optimize coding workflows and long-running autonomous tasks. This innovation matters now because it tackles a pressing issue in the field: autonomy degradation in complex workflows. As coding tasks become increasingly intricate, traditional agents often struggle to maintain their performance, leading to decreased productivity and efficiency. PrimeAgent's novel self-improving RL feedback loop directly addresses this challenge, enabling agents to adapt and improve over time.\n\nAt its core, PrimeAgent leverages a unique combination of reinforcement learning and meta-learning to create a self-sustaining improvement cycle. This allows the agent to learn from its experiences, refine its strategies, and apply these insights to future tasks. The result is an agent that can efficiently handle long-horizon coding tasks, such as debugging, testing, and code review, with minimal human intervention.\n\nWhat sets PrimeAgent apart is its ability to balance exploration and exploitation. By carefully navigating the trade-off between trying new approaches and building on existing knowledge, the agent can maximize its learning potential. This is particularly important in complex workflows, where the optimal solution may not be immediately apparent. PrimeAgent's self-improving nature also enables it to adapt to changing project requirements, ensuring that its performance remains consistent over time.\n\nML engineers working on autonomous coding systems, DevOps teams, and researchers in the field of AI-powered software development should take notice of PrimeAgent. Practical use cases include automating repetitive coding tasks, optimizing continuous integration and delivery pipelines, and enhancing code quality through AI-driven review and testing. By integrating PrimeAgent into their workflows, developers can offload tedious tasks, focus on high-level creative work, and ultimately accelerate the software development process.\n\nIn conclusion, PrimeAgent represents a significant step forward in the development of autonomous coding agents. Its self-improving RL feedback loop and ability to balance exploration and exploitation make it an attractive solution for teams seeking to optimize their coding workflows and improve overall productivity. As the field of AI-powered software development continues to evolve, innovations like PrimeAgent will play a crucial role in shaping the future of coding.",
+    "category": "AI Agent",
+    "score": 88,
+    "emoji": "🧠",
+    "accent_color": "#6366f1",
+    "source": "github",
+    "date": "2026-08-08",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260808-primeintellect-aiprime-agent.png",
+    "tags": [],
+    "slug": "20260808-primeintellect-aiprime-agent"
+  },
+  {
     "title": "TRELLIS.2",
     "url": "https://nebula387.github.io/TechRadar/posts/20260803-microsofttrellis2.html",
     "source_url": "https://github.com/microsoft/TRELLIS.2",
