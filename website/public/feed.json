@@ -1,5 +1,21 @@
 [
   {
+    "title": "Embabel Agent",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260810-embabelembabel-agent.html",
+    "source_url": "https://github.com/embabel/embabel-agent",
+    "description": "Это фреймворк для создания агентов ИИ на платформе JVM, который наконец-то приносит современные шаблоны ИИ-агентов в мир Java и Kotlin. Это важно прямо сейчас, потому что он решает критическую проблему для разработчиков企",
+    "body_en": "The embabel/embabel-agent framework is a groundbreaking addition to the JVM ecosystem, bringing modern AI agent patterns to enterprise Java and Kotlin developers. As AI continues to transform industries, the need for robust, scalable, and maintainable agent-based systems has become increasingly pressing. By bridging the gap between AI research and JVM-based development, embabel-agent enables developers to create sophisticated, autonomous agents that can interact with their environment, make decisions, and adapt to changing conditions.\n\nAt its core, embabel-agent provides a flexible and modular architecture for building agents, allowing developers to focus on the logic and behavior of their agents rather than the underlying infrastructure. This is achieved through a set of carefully designed APIs and interfaces that simplify the process of creating, deploying, and managing agents. One of the key features of embabel-agent is its support for multi-agent systems, enabling the creation of complex, distributed systems that can solve problems collectively.\n\nWhat sets embabel-agent apart from other frameworks is its emphasis on scalability, reliability, and performance. By leveraging the JVM's robust concurrency model and embabel-agent's own optimized messaging system, developers can create agents that can handle large volumes of data and interactions without sacrificing responsiveness. Additionally, embabel-agent's built-in support for popular AI and machine learning libraries makes it an ideal choice for developers looking to integrate AI capabilities into their agents.\n\nEnterprise developers working on complex systems, such as logistics, finance, or healthcare, should take notice of embabel-agent. Practical use cases include creating autonomous monitoring systems, self-healing networks, or intelligent decision-support systems. By leveraging embabel-agent, developers can create more resilient, adaptive, and efficient systems that can respond to changing conditions and make informed decisions.\n\nIn conclusion, embabel/embabel-agent is a significant step forward for JVM-based development, enabling developers to create sophisticated AI-powered agents that can drive innovation and transformation in various industries. As the AI landscape continues to evolve, embabel-agent is poised to play a critical role in shaping the future of autonomous systems development.",
+    "category": "AI Agent",
+    "score": 88,
+    "emoji": "☕",
+    "accent_color": "#f97316",
+    "source": "github",
+    "date": "2026-08-10",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260810-embabelembabel-agent.png",
+    "tags": [],
+    "slug": "20260810-embabelembabel-agent"
+  },
+  {
     "title": "Livekit Agents",
     "url": "https://nebula387.github.io/TechRadar/posts/20260809-livekitagents.html",
     "source_url": "https://github.com/livekit/agents",
