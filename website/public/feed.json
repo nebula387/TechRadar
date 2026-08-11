@@ -1,5 +1,21 @@
 [
   {
+    "title": "AirLLM 70B Inference",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260811-lyogavinairllm.html",
+    "source_url": "https://github.com/lyogavin/airllm",
+    "description": "🚀 Революция в Мире ИИ: AirLLM - это инструмент, который позволяет эффективно использовать модели ИИ с 70 миллиардами параметров на обычном потребительском оборудовании с помощью умного распределения памяти между CPU и GP",
+    "body_en": "The recent release of lyogavin/airllm has sent ripples through the machine learning community, as it enables efficient 70B-parameter Large Language Model (LLM) inference on consumer-grade hardware. This breakthrough matters now because it democratizes access to high-performance LLMs, allowing more developers to explore and deploy these powerful models without requiring expensive, high-end infrastructure. By achieving this feat, airllm opens up new possibilities for natural language processing, text generation, and other applications that rely on LLMs.\n\nAt its core, airllm's innovation lies in its intelligent CPU-GPU memory offloading mechanism. This technique allows the model to run on a single 4GB GPU, which is a significant reduction in required hardware compared to traditional approaches. The airllm library achieves this through a combination of model pruning, quantization, and knowledge distillation, making it an attractive solution for developers working with resource-constrained environments.\n\nWhat makes airllm unique is its ability to balance performance and efficiency. The library's architecture is designed to minimize memory usage while maintaining the accuracy and reliability of the LLM. This is particularly important for real-world applications where latency and throughput are critical factors. By optimizing the inference process, airllm enables developers to deploy LLMs in a wider range of scenarios, from cloud-based services to edge devices.\n\nML engineers and developers working on NLP projects should take notice of airllm, as it offers a practical solution for deploying high-performance LLMs on consumer hardware. Practical use cases include building chatbots, language translation systems, and content generation tools, among others. With airllm, these applications can now be developed and deployed more efficiently, making them more accessible to a broader audience.\n\nIn conclusion, the lyogavin/airllm library represents a significant step forward in making high-performance LLMs more accessible and efficient. As the machine learning community continues to push the boundaries of what is possible with LLMs, innovations like airllm will play a crucial role in democratizing access to these powerful technologies.",
+    "category": "Developer Tool",
+    "score": 93,
+    "emoji": "🚀",
+    "accent_color": "#6366f1",
+    "source": "github",
+    "date": "2026-08-11",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260811-lyogavinairllm.png",
+    "tags": [],
+    "slug": "20260811-lyogavinairllm"
+  },
+  {
     "title": "Embabel Agent",
     "url": "https://nebula387.github.io/TechRadar/posts/20260810-embabelembabel-agent.html",
     "source_url": "https://github.com/embabel/embabel-agent",
