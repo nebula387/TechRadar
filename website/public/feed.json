@@ -1,5 +1,37 @@
 [
   {
+    "title": "Semantica-AGI",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260817-semantica-agisemantica.html",
+    "source_url": "https://github.com/semantica-agi/semantica",
+    "description": "Semantica-agi/semantica - это графо-родная инфраструктура для контекстно-зависимых и подотчетных систем ИИ, которая решает критические проблемы управления контекстом и отслеживаемости в производственных системах ИИ. Это ",
+    "body_en": "As AI systems become increasingly pervasive in production environments, the need for robust context management and traceability has never been more pressing. Semantica-AGI, a graph-native infrastructure, addresses these critical gaps, enabling the development of more accountable and transparent AI systems. By providing a scalable and flexible framework for managing complex relationships between data, models, and decisions, Semantica-AGI empowers ML engineers to build more reliable and explainable AI solutions.\n\nAt its core, Semantica-AGI's graph-native architecture allows for the efficient storage and querying of complex, interconnected data. This enables the creation of rich, contextual models that can capture nuanced relationships between entities, events, and decisions. Unlike traditional relational databases or NoSQL stores, Semantica-AGI's graph-based approach provides a more natural fit for the complex, dynamic data flows characteristic of modern AI systems.\n\nWhat sets Semantica-AGI apart is its ability to seamlessly integrate with existing AI frameworks and tools, making it an attractive solution for ML engineers looking to augment their existing workflows. By providing a standardized, vendor-agnostic interface for context management and traceability, Semantica-AGI facilitates collaboration and knowledge sharing across teams and organizations. Furthermore, its support for advanced querying and analytics capabilities enables developers to gain deeper insights into their AI systems' behavior and decision-making processes.\n\nML engineers working on production AI systems, particularly those in regulated industries such as finance, healthcare, or autonomous vehicles, should take notice of Semantica-AGI. Practical use cases include explainable AI for regulatory compliance, model auditing and debugging, and continuous monitoring of AI system performance. By leveraging Semantica-AGI, developers can ensure that their AI systems are not only highly performant but also transparent, accountable, and reliable.\n\nIn conclusion, Semantica-AGI represents a significant step forward in the development of more accountable and transparent AI systems. By addressing critical context management and traceability gaps, it empowers ML engineers to build more reliable, explainable, and scalable AI solutions that can meet the demands of production environments. As the AI landscape continues to evolve, solutions like Semantica-AGI will play an increasingly important role in shaping the future of AI development.",
+    "category": "Developer Tool",
+    "score": 86,
+    "emoji": "🧠",
+    "accent_color": "#6366f1",
+    "source": "github",
+    "date": "2026-08-17",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260817-semantica-agisemantica.png",
+    "tags": [],
+    "slug": "20260817-semantica-agisemantica"
+  },
+  {
+    "title": "Edge AI in 14MB",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260817-cactus-computeneedle.html",
+    "source_url": "https://github.com/cactus-compute/needle",
+    "description": "Это 14МБ-фундаментальная модель для крошечных устройств, таких как телефоны, носимые устройства, умные дома и роботы. Она важна прямо сейчас, потому что обеспечивает беспрецедентные возможности ИИ на краю сети с высоко о",
+    "body_en": "Cactus-compute/needle is a groundbreaking foundation model that brings unprecedented edge AI capabilities to tiny devices, including phones, wearables, smart home devices, and robots. This 14MB architecture is highly optimized for resource-constrained hardware, making it a game-changer for machine learning (ML) engineers working on edge AI projects. With needle, developers can now deploy AI models on devices with limited memory and computational resources, enabling a wide range of applications that were previously impossible.\n\nOne of the key features of needle is its highly efficient architecture, which allows it to deliver impressive performance while requiring minimal resources. This is achieved through a combination of knowledge distillation, quantization, and pruning, which reduce the model's size and computational requirements without sacrificing accuracy. Additionally, needle is designed to be highly flexible, allowing developers to fine-tune the model for specific tasks and applications.\n\nWhat makes needle truly unique is its ability to run on devices with as little as 16MB of memory, making it an ideal solution for wearables, smart home devices, and other resource-constrained devices. This is particularly important for applications that require real-time processing and low latency, such as voice assistants, gesture recognition, and object detection. By enabling edge AI on these devices, needle opens up new possibilities for ML engineers to create innovative and interactive applications.\n\nML engineers working on edge AI projects, particularly those involving tiny devices, should take notice of needle. Practical use cases include developing voice assistants for wearables, creating gesture recognition systems for smart home devices, and building object detection models for robots. With needle, developers can now deploy AI models on devices that were previously unable to support them, enabling a wide range of new applications and use cases.\n\nIn conclusion, cactus-compute/needle is a significant breakthrough in edge AI, enabling ML engineers to deploy AI models on tiny devices with unprecedented efficiency and accuracy. As the demand for edge AI continues to grow, needle is poised to play a major role in shaping the future of AI on resource-constrained devices.",
+    "category": "AI Model",
+    "score": 88,
+    "emoji": "📱",
+    "accent_color": "#10b981",
+    "source": "github",
+    "date": "2026-08-17",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260817-cactus-computeneedle.png",
+    "tags": [],
+    "slug": "20260817-cactus-computeneedle"
+  },
+  {
     "title": "AirLLM 70B Inference",
     "url": "https://nebula387.github.io/TechRadar/posts/20260811-lyogavinairllm.html",
     "source_url": "https://github.com/lyogavin/airllm",
