@@ -1,5 +1,21 @@
 [
   {
+    "title": "LLM Hardware Compatibility",
+    "url": "https://nebula387.github.io/TechRadar/posts/20260822-alexsjonesllmfit.html",
+    "source_url": "https://github.com/AlexsJones/llmfit",
+    "description": "🤖 Ускоряем разработку ИИ: инструмент под названием AlexsJones/llmfit решает одну из самых больших проблем разработчиков ИИ - совместимость моделей с аппаратным обеспечением. Теперь ты можешь с легкостью найти подходящую ",
+    "body_en": "The increasing demand for local Large Language Model (LLM) deployment has created a significant bottleneck: ensuring hardware-model compatibility. With hundreds of models and providers available, manually verifying compatibility is a time-consuming and tedious task. This is where AlexsJones/llmfit comes in, providing an elegant solution to this problem with a single Command-Line Interface (CLI) command.\n\nAt its core, llmfit is a command-line tool that simplifies the process of finding compatible LLMs for a given hardware configuration. By leveraging a vast database of models and providers, llmfit can quickly identify which models can run efficiently on a specific device. This is achieved through a comprehensive compatibility check that considers factors such as GPU architecture, CPU type, and memory constraints.\n\nWhat sets llmfit apart is its ability to perform these checks with a single command, streamlining the development workflow for ML engineers. The tool's unique architecture allows it to seamlessly integrate with existing development pipelines, making it an indispensable asset for teams working on local LLM deployment projects. Furthermore, llmfit's extensive model database is constantly updated to reflect the latest developments in the LLM landscape, ensuring that users have access to the most accurate and relevant information.\n\nML engineers working on local LLM deployment projects should care about llmfit, as it can significantly reduce the time and effort spent on hardware-model compatibility testing. Practical use cases include quickly identifying compatible models for edge devices, optimizing model performance on specific hardware configurations, and simplifying the development process for LLM-based applications. By leveraging llmfit, developers can focus on higher-level tasks, such as model fine-tuning and application development, rather than getting bogged down in compatibility issues.\n\nIn conclusion, AlexsJones/llmfit is a game-changer for ML engineers working on local LLM deployment projects. Its ability to elegantly solve the hardware-model compatibility bottleneck with a single CLI command makes it an essential tool in the developer's toolkit. As the LLM landscape continues to evolve, llmfit is poised to play a critical role in streamlining the development process and unlocking the full potential of local LLM deployment.",
+    "category": "Developer Tool",
+    "score": 88,
+    "emoji": "🤖",
+    "accent_color": "#10b981",
+    "source": "github",
+    "date": "2026-08-22",
+    "image_url": "https://nebula387.github.io/TechRadar/images/20260822-alexsjonesllmfit.png",
+    "tags": [],
+    "slug": "20260822-alexsjonesllmfit"
+  },
+  {
     "title": "Semantica-AGI",
     "url": "https://nebula387.github.io/TechRadar/posts/20260817-semantica-agisemantica.html",
     "source_url": "https://github.com/semantica-agi/semantica",
@@ -784,19 +800,5 @@
     "image_url": "https://nebula387.github.io/TechRadar/images/20260621-asgeirtjsystem-prompts-leaks.png",
     "tags": [],
     "slug": "20260621-asgeirtjsystem-prompts-leaks"
-  },
-  {
-    "title": "AI Coding Agents",
-    "url": "https://nebula387.github.io/TechRadar/posts/20260621-addyosmaniagent-skills.html",
-    "source_url": "https://github.com/addyosmani/agent-skills",
-    "description": "Сейчас самое время поговорить об Agent Skills, производственных инженерных навыках для кодирования агентов ИИ. Это важно прямо сейчас, потому что такие навыки открывают новые возможности для автоматизации и оптимизации п",
-    "body_en": "Production-grade engineering skills for AI coding agents have become a crucial aspect of the software development landscape. As AI technology continues to advance, the need for reliable and efficient coding agents has increased significantly. The addyosmani/agent-skills project aims to provide a comprehensive set of skills for AI coding agents, enabling them to operate at a production-grade level. This matters now more than ever, as companies are increasingly relying on AI-powered tools to streamline their development processes and improve overall productivity.\n\nOne of the key features of the addyosmani/agent-skills project is its focus on modularity and flexibility. The project provides a wide range of skills that can be easily integrated into existing AI coding agents, allowing developers to customize and extend their capabilities as needed. This modular approach enables developers to create tailored solutions that meet the specific requirements of their projects, making it an attractive option for companies with unique development needs.\n\nAnother unique aspect of the addyosmani/agent-skills project is its emphasis on testing and validation. The project provides a comprehensive testing framework that ensures the skills developed for AI coding agents are thoroughly tested and validated, guaranteeing a high level of reliability and performance. This focus on testing and validation is critical in production-grade environments, where downtime and errors can have significant consequences.\n\nML engineers and companies invested in AI-powered development tools should care about the addyosmani/agent-skills project. Practical use cases include automating repetitive coding tasks, improving code quality and consistency, and enhancing collaboration between human developers and AI coding agents. By leveraging the skills provided by the addyosmani/agent-skills project, companies can unlock new levels of efficiency and productivity in their software development processes.\n\nIn conclusion, the addyosmani/agent-skills project represents a significant step forward in the development of production-grade engineering skills for AI coding agents. As the demand for reliable and efficient AI-powered development tools continues to grow, the importance of this project will only continue to increase. By providing a comprehensive set of skills and a focus on modularity, testing, and validation, the addyosmani/agent-skills project is poised to play a critical role in shaping the future of software development.",
-    "category": "AI Agent",
-    "score": 92,
-    "emoji": "🚀",
-    "date": "2026-06-21",
-    "image_url": "https://nebula387.github.io/TechRadar/images/20260621-addyosmaniagent-skills.png",
-    "tags": [],
-    "slug": "20260621-addyosmaniagent-skills"
   }
 ]
